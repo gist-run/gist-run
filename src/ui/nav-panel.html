@@ -1,0 +1,25 @@
+<template bindables="editSession">
+  <nav class="menu">
+    <a repeat.for="file of editSession.files"
+       class="menu-item ${editSession.currentFile === file ? 'selected' : ''}"
+       href="#"
+       click.delegate="editSession.currentFile = file">
+       <span class="unnamed-file" show.bind="file.name === ''">unnamed</span>
+       <span show.bind="file.name !== ''">${file.name}</span>
+   </a>
+  </nav>
+
+  <nav class="menu" show.bind="editSession.gist.html_url">
+    <a class="menu-item" href="${editSession.gist.html_url}" target="_blank">
+      View Gist
+    </a>
+    <a class="menu-item" href="${editSession.gist.html_url}/revisions" target="_blank">
+      <span class="counter">${editSession.gist.history.length || 0}</span>
+      Revisions
+    </a>
+    <a class="menu-item" href="${editSession.gist.html_url}/forks" target="_blank">
+      <span class="counter">${editSession.gist.forks.length || 0}</span>
+      Forks
+    </a>
+  </nav>
+</template>

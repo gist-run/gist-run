@@ -1,0 +1,89 @@
+<template>
+  <require from="./split-panel"></require>
+  <require from="./nav-panel.html"></require>
+  <require from="./edit-file-panel.html"></require>
+  <require from="./result-panel"></require>
+
+  <div class="gist-header" role="banner">
+    <span class="gist-header-logo">GistRun</span>
+
+    <form class="gist-header-load-gist">
+      <div class="input-group">
+        <input class="input-mini" type="text" placeholder="Gist URL or ID..." ref="urlOrIdInput">
+        <span class="input-group-button">
+          <button class="btn btn-sm" click.delegate="loadGist(urlOrIdInput.value)">
+            <span class="octicon octicon-repo-pull"></span>
+          </button>
+        </span>
+      </div>
+    </form>
+
+    <a class="tooltipped tooltipped-sw right"
+       href="https://gist.github.com/${user.login}" target="_blank"
+       show.bind="user.authenticated"
+       aria-label="Signed in as ${user.login}">
+      <img class="avatar avatar-small"
+           src.bind="user.avatar_url + '?v=3&s=32'"
+           width="26" height="26">
+    </a>
+
+    <button class="btn btn-sm right" type="button"
+            show.bind="!user.authenticated"
+            click.delegate="login()">
+      Sign In
+    </button>
+
+    <button class="btn btn-sm right" type="button"
+            click.delegate="newGist()">
+      New Gist
+    </button>
+  </div>
+
+  <div class="flash text-center"
+       if.bind="!user.authenticated && !rateInfoDismissed && rateLimit.remaining > 10">
+    <span class="octicon octicon-x flash-close js-flash-close" click.delegate="rateInfoDismissed = true"></span>
+    <span class="octicon octicon-info"></span> Pro Tip: <a href="#" click.delegate="login()">Sign in</a> to save gists to your GitHub account.
+  </div>
+  <div class="flash flash-warn text-center"
+       if.bind="!user.authenticated && !rateWarningDismissed && rateLimit.remaining <= 10 && rateLimit.remaining !== 0">
+    <span class="octicon octicon-x flash-close js-flash-close" click.delegate="rateWarningDismissed = true"></span>
+    <span class="octicon octicon-alert"></span> Uh oh... you're about to hit GitHub's rate limit for unauthenticated requests. <a href="#" click.delegate="login()">Sign in</a> to increase your rate limit.&nbsp;&nbsp;<em>${rateLimit.remaining} requests remaining.</em>
+  </div>
+  <div class="flash flash-error text-center"
+       if.bind="!user.authenticated && !rateErrorDismissed && rateLimit.remaining === 0">
+    <span class="octicon octicon-x flash-close js-flash-close" click.delegate="rateErrorDismissed = true"></span>
+    <span class="octicon octicon-alert"></span> On snap! You've hit GitHub's rate limit for unauthenticated requests. <a href="#" click.delegate="login()">Sign in</a> to increase your rate limit.&nbsp;&nbsp;<em>Resets at ${rateLimit.reset}.</em>
+  </div>
+
+  <div class="gist-savebar">
+    <button class="btn" click.delegate="editSession.addFile('')">Add File</button>
+
+    <button class="btn ${editSession.autoRun ? 'btn-danger' : 'btn-primary'}" click.delegate="editSession.toggleAutoRun()">
+      ${editSession.autoRun ? 'Stop' : 'Run'}
+    </button>
+
+    <input class="gist-description input-contrast" type="text" placeholder="Gist description..."
+           value.bind="editSession.description">
+
+    <button class="btn btn-secret tooltipped tooltipped-s" aria-label="Secret gists are hidden from search engines but visible to anyone you give the URL."
+            click.delegate="editSession.save(true)">
+      Create Secret Gist
+    </button>
+    <button class="btn" click.delegate="editSession.save(false)">Create Public Gist</button>
+  </div>
+
+
+  <split-panel>
+    <template replace-part="left">
+      <nav-panel edit-session.bind="editSession"></nav-panel>
+    </template>
+
+    <template replace-part="center">
+      <edit-file-panel edit-session.bind="editSession"></edit-file-panel>
+    </template>
+
+    <template replace-part="right">
+      <result-panel></result-panel>
+    </template>
+  </split-panel>
+</template>
