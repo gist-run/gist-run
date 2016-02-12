@@ -204,10 +204,7 @@ result-panel iframe {
   font-style: italic;
 }
 
-.blink {
-  animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {
-  50% { opacity: 0.0; }
+.menu-item {  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

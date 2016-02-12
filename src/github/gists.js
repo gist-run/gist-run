@@ -17,7 +17,7 @@ export class Gists {
     }
     return this.api.fetch(url)
       .then(response => {
-        if (response.status === 200) {
+        if (response.ok) {
           // todo: handle truncated files
           return response.json();
         }
@@ -36,7 +36,7 @@ export class Gists {
     };
     return this.api.fetch(`gists/${id}`, init)
       .then(response => {
-        if (response.status === 200) {
+        if (response.ok) {
           return response.json();
         }
         // todo: handle rate limit, etc
@@ -54,7 +54,7 @@ export class Gists {
     };
     return this.api.fetch(`gists`, init)
       .then(response => {
-        if (response.status === 201) {
+        if (response.ok) {
           return response.json();
         }
         // todo: handle rate limit, etc
@@ -65,7 +65,7 @@ export class Gists {
   fork(id) {
     return this.api.fetch(`gists/${id}/forks`, { method: 'POST' })
       .then(response => {
-        if (response.status === 201) {
+        if (response.ok) {
           return this.load(id);
         }
         // todo: handle rate limit, etc
@@ -76,8 +76,8 @@ export class Gists {
   fromQuery(query) {
     if (query.length) {
       let args = deparam(query.substring(1));
-      if (args.gist) {
-        return this.load(args.gist, args.sha);
+      if (args.id) {
+        return this.load(args.id, args.sha);
       }
     }
     return new Promise(resolve => resolve(null));
@@ -85,8 +85,8 @@ export class Gists {
 
   toQuery(gist, withSha) {
     if (withSha) {
-      return param({ gist: gist.id, sha: gist.history[0].version });
+      return param({ id: gist.id, sha: gist.history[0].version });
     }
-    return param({ gist: gist.id });
+    return param({ id: gist.id });
   }
 }

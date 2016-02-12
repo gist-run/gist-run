@@ -18,31 +18,25 @@ export class User {
   }
 
   load() {
-    return this.api.fetch('user')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      })
-      .then(user => {
-        if (user) {
-          this.authenticated = true;
-          this.login = user.login;
-          this.gists_url = user.gists_url;
-          this.avatar_url = user.avatar_url;
-        } else {
-          this.setAnonymous();
-        }
-      });
-  }
-
-  update() {
-    if (this.accessToken.token === null) {
-      this.setAnonymous();
-      return new Promise(resolve => resolve());
+    if (this.accessToken.value) {
+      return this.api.fetch('user')
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          return null;
+        })
+        .then(user => {
+          if (user) {
+            this.authenticated = true;
+            this.login = user.login;
+            this.gists_url = user.gists_url;
+            this.avatar_url = user.avatar_url;
+          } else {
+            this.setAnonymous();
+          }
+        });
     }
-    return this.load()
-      .catch(reason => this.setAnonymous());
+    return Promise.resolve(null);
   }
 }

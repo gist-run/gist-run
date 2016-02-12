@@ -67,7 +67,11 @@ export class App {
   }
 
   login() {
-    this.oauth.login().then(() => this.user.load());
+    this.loggingIn = true;
+    this.oauth.login()
+      .then(() => this.user.load())
+      .catch()
+      .then(() => this.loggingIn = false);
   }
 
   newGist() {

@@ -29,6 +29,7 @@
 
     <button class="btn btn-sm right" type="button"
             show.bind="!user.authenticated"
+            disabled.bind="loggingIn"
             click.delegate="login()">
       Sign In
     </button>

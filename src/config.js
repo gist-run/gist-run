@@ -1,4 +1,4 @@
-const isDev = false; /localhost/.test(location.origin);
+const isDev = /^http:\/\/localhost/.test(location.origin);
 export const workerOrigin = isDev ? 'http://localhost:3000' : 'https://gist.host';
 export const workerPage = workerOrigin + '/';
 
