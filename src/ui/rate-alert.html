@@ -1,0 +1,17 @@
+<template>
+  <div class="flash text-center"
+       if.bind="!user.authenticated && !rateInfoDismissed && rateLimit.remaining > 10">
+    <span class="octicon octicon-x flash-close js-flash-close" click.delegate="rateInfoDismissed = true"></span>
+    <span class="octicon octicon-info"></span> Pro Tip: <a href="#" click.delegate="user.signIn()">Sign in</a> to save gists to your GitHub account.
+  </div>
+  <div class="flash flash-warn text-center"
+       if.bind="!user.authenticated && !rateWarningDismissed && rateLimit.remaining <= 10 && rateLimit.remaining !== 0">
+    <span class="octicon octicon-x flash-close js-flash-close" click.delegate="rateWarningDismissed = true"></span>
+    <span class="octicon octicon-alert"></span> Uh oh... you're about to hit GitHub's rate limit for unauthenticated requests. <a href="#" click.delegate="user.signIn()">Sign in</a> to increase your rate limit.&nbsp;&nbsp;<em>${rateLimit.remaining} requests remaining.</em>
+  </div>
+  <div class="flash flash-error text-center"
+       if.bind="!user.authenticated && !rateErrorDismissed && rateLimit.remaining === 0">
+    <span class="octicon octicon-x flash-close js-flash-close" click.delegate="rateErrorDismissed = true"></span>
+    <span class="octicon octicon-alert"></span> On snap! You've hit GitHub's rate limit for unauthenticated requests. <a href="#" click.delegate="user.signIn()">Sign in</a> to increase your rate limit.&nbsp;&nbsp;<em>Resets at ${rateLimit.reset}.</em>
+  </div>
+</template>

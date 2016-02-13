@@ -7,7 +7,7 @@ body {
   flex-direction: column;
 }
 
-.gist-header {
+header {
   flex: 0 0 auto;
 
   margin-bottom: 15px;
@@ -20,7 +20,7 @@ body {
   border-bottom: 1px solid #e5e5e5;
 }
 
-.gist-header .right {
+header .right {
   margin-right: 15px;
 }
 
@@ -44,7 +44,7 @@ body {
   vertical-align: middle;
 }
 
-.gist-savebar {
+edit-session-commands {
   flex: 0 0 auto;
   margin-bottom: 15px;
   margin-left: 15px;
@@ -60,7 +60,7 @@ body {
   margin-right: 15px;
 }
 
-.gist-savebar > .btn + .btn {
+.m-l-5 {
   margin-left: 5px;
 }
 
@@ -138,11 +138,14 @@ result-panel iframe {
   flex-grow: 1;
 }
 
-.flash {
+rate-alert {
   flex: 0 0 auto;
-  margin-bottom: 15px;
   margin-left: 15px;
   margin-right: 15px;
+}
+
+rate-alert > .flash {
+  margin-bottom: 15px;
 }
 
 .btn-secret {
@@ -204,7 +207,7 @@ result-panel iframe {
   font-style: italic;
 }
 
-.menu-item {  
+.menu-item {
   overflow: hidden;
   text-overflow: ellipsis;
 }

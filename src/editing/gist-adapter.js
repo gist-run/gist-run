@@ -2,9 +2,7 @@ import {inject} from 'aurelia-framework';
 import {Gists} from '../github/gists';
 import {User} from '../github/user';
 import {defaultIndexHtml} from '../github/default-gist';
-
 import {File} from './file';
-import {saveAction, getSaveAction} from './save-action';
 
 function toFilename(name) {
   return name.replace(/\//g, '\\');
@@ -13,6 +11,12 @@ function toFilename(name) {
 function toUrl(name) {
   return name.replace(/\\/g, '/');
 }
+
+export const saveAction = {
+  fork: 'Fork',
+  create: 'Create',
+  update: 'Update'
+};
 
 @inject(Gists, User)
 export class GistAdapter {
@@ -80,15 +84,26 @@ export class GistAdapter {
     return map;
   }
 
+  getSaveAction(gist) {
+    const existingGist = !!gist.id;
+    // existing gist that isn't anonymous? (anonymous gists can't be forked)
+    if (this.user.authenticated && existingGist && gist.owner) {
+      // user is owner?
+      if (gist.owner.login === this.user.login) {
+        return saveAction.update;
+      } else {
+        return saveAction.fork;
+      }
+    } else {
+      return saveAction.create;
+    }
+  }
+
   save(gist, filesArray, secret) {
-    // if (!this.user.authenticated) {
-    //   throw new Error('User is not authenticated.');
-    // }
-    gist.public = !secret;
     let files;
     let promise;
     let description = gist.description;
-    switch (getSaveAction(gist, this.user)) {
+    switch (this.getSaveAction(gist)) {
       case saveAction.update:
         files = this.getUpdateFiles(gist.files, filesArray);
         promise = this.gists.update(gist.id, { description, files });
@@ -97,12 +112,12 @@ export class GistAdapter {
         promise = this.gists.fork(gist.id)
           .then(gist => {
             files = this.getUpdateFiles(gist.files, filesArray);
-            return this.gists.update({ description, files });
+            return this.gists.update(gist.id, { public: !secret, description, files });
           });
         break;
       case saveAction.create:
         files = this.getCreateFiles(filesArray);
-        promise = this.gists.create({ description, files });
+        promise = this.gists.create({ public: !secret, description, files });
         break;
     }
 

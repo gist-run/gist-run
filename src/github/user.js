@@ -1,12 +1,16 @@
 import {inject} from 'aurelia-framework';
 import {AccessToken} from './access-token';
-import {ApiClient} from './api-client';
+import {ApiClient} from './api-client'
+import {OAuth} from '../github/oauth';
 
-@inject(AccessToken, ApiClient)
+@inject(AccessToken, ApiClient, OAuth)
 export class User {
-  constructor(accessToken, api) {
+  loggingIn = false;
+
+  constructor(accessToken, api, oauth) {
     this.accessToken = accessToken;
     this.api = api;
+    this.oauth = oauth;
     this.setAnonymous();
   }
 
@@ -37,6 +41,15 @@ export class User {
           }
         });
     }
+    this.setAnonymous();
     return Promise.resolve(null);
+  }
+
+  signIn() {
+    this.loggingIn = true;
+    this.oauth.login()
+      .then(() => this.user.load())
+      .catch()
+      .then(() => this.loggingIn = false);
   }
 }

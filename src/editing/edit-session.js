@@ -2,7 +2,6 @@ import {computedFrom} from 'aurelia-framework';
 import {RunEvent} from './run-event';
 import {CurrentFileChangedEvent} from './current-file-changed-event';
 import {getEditorMode} from './editor-mode';
-import {getSaveAction} from './save-action';
 import {File} from './file';
 
 export class EditSession {
@@ -72,10 +71,6 @@ export class EditSession {
       .then(::this.run);
   }
 
-  get saveAction() {
-    return getSaveAction(this.gist, this.user);
-  }
-
   get description() {
     return this.gist.description;
   }
@@ -85,6 +80,10 @@ export class EditSession {
 
   resetWorker() {
     return this.worker.resetFiles(this.files.map(f => f.clone()));
+  }
+
+  get saveAction() {
+    return this.gistAdapter.getSaveAction(this.gist);
   }
 
   save(secret) {

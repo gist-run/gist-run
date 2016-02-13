@@ -66,11 +66,12 @@ export class Gists {
     return this.api.fetch(`gists/${id}/forks`, { method: 'POST' })
       .then(response => {
         if (response.ok) {
-          return this.load(id);
+          return response.json();
         }
         // todo: handle rate limit, etc
         throw new Error('unable to fork gist');
-      });
+      })
+      .then(fork => this.load(fork.id));
   }
 
   fromQuery(query) {

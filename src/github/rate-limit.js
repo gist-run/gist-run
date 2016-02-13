@@ -1,6 +1,6 @@
 export class RateLimit {
-  limit = 0;
-  remaining = 0;
+  limit = 99999;
+  remaining = 99999;
   reset = null;
 
   readHeaders(response) {
