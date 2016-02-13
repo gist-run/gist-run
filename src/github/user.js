@@ -46,10 +46,10 @@ export class User {
   }
 
   signIn() {
-    this.loggingIn = true;
+    this.signingIn = true;
     this.oauth.login()
-      .then(() => this.user.load())
+      .then(() => this.load())
       .catch()
-      .then(() => this.loggingIn = false);
+      .then(() => this.signingIn = false);
   }
 }
