@@ -7,6 +7,11 @@ body {
   flex-direction: column;
 }
 
+.splash {
+  height: 90%;
+  margin: auto;
+}
+
 header {
   flex: 0 0 auto;
 
@@ -24,20 +29,16 @@ header .right {
   margin-right: 15px;
 }
 
-.gist-header-logo {
-  font: Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-  height: 28px;
-  font-size: 28px;
-  font-weight: bold;
-  line-height: 26px;
+.header-logo {
   position: relative;
   float: left;
-  height: 26px;
+  height: 36px;
   margin-right: 15px;
-  color: #333;
+  margin-top: -5px;
+  margin-bottom: -5px;
 }
 
-.gist-header-load-gist {
+.header-load-gist {
   max-width: 300px;
   display: inline-block;
   position: relative;
