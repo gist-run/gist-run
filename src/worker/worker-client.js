@@ -1,6 +1,9 @@
 import {postMessageToWorker} from './worker-activator';
+import {workerPage} from '../config';
 
-export const clientID = +new Date();
+const clientID = +new Date();
+
+export const runUrl = `${workerPage}run/${clientID}/index.html`;
 
 export class WorkerClient {
   sendMessage(message) {

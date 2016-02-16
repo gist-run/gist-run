@@ -42,7 +42,7 @@ export class App {
 
   activate() {
     return Promise.all([
-      this.gists.fromQuery(window.location.search)
+      this.gists.fromQuery(location.search)
         .catch(reason => null)
         .then(gist => {
           if (!gist) {
@@ -69,6 +69,28 @@ export class App {
   }
 
   loadGist(urlOrId) {
-    alert('not implemented');
+    let match = /(?:^|\/)([\da-f]{20})(?:\/([\da-f]{40})){0,1}$/.exec(urlOrId);
+    if (match === null) {
+      return;
+    }
+    let id = match[1];
+    let sha = match[2];
+    let query;
+    if (sha) {
+      query = `?id=${id}&sha=${sha}`;
+    } else {
+      query = `?id=${id}`;
+    }
+
+    this.gists.fromQuery(query)
+      .then(gist => {
+        if (!gist) {
+          return;
+        }
+        history.pushState(null, window.title, '?' + this.gists.toQuery(gist, !!sha));
+        return this.editSessionFactory.create(gist)
+          .then(editSesson => this.setEditSession(editSesson));
+      })
+      .catch();
   }
 }

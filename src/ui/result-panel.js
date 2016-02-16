@@ -1,8 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {clientID} from '../worker/worker-client';
+import {runUrl} from '../worker/worker-client';
 import {RunEvent} from '../editing/run-event';
-import {workerPage} from '../config';
 
 @inject(EventAggregator)
 export class ResultPanel {
@@ -11,7 +10,7 @@ export class ResultPanel {
   }
 
   run() {
-    this.iframe.src = `${workerPage}run/${clientID}/index.html`;
+    this.iframe.src = runUrl;
   }
 
   attached() {

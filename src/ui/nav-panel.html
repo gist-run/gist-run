@@ -9,24 +9,32 @@
    </a>
   </nav>
 
-  <nav class="menu" show.bind="editSession.gist.html_url">
-    <a class="menu-item" href="${editSession.gist.html_url}" target="_blank">
+  <nav class="menu">
+    <a class="menu-item" href="${editSession.gist.html_url}" target="_blank"
+       show.bind="editSession.gist.html_url">
       <span class="octicon octicon-gist"></span>
       View Gist
     </a>
-    <a class="menu-item" href="${editSession.gist.html_url}/revisions" target="_blank">
+    <a class="menu-item" href="${editSession.gist.html_url}/revisions" target="_blank"
+       show.bind="editSession.gist.html_url">
       <span class="octicon octicon-git-commit"></span>
       <span class="counter">${editSession.gist.history.length || 0}</span>
       Revisions
     </a>
-    <a class="menu-item" href="${editSession.gist.html_url}/forks" target="_blank">
+    <a class="menu-item" href="${editSession.gist.html_url}/forks" target="_blank"
+       show.bind="editSession.gist.html_url">
       <span class="octicon octicon-repo-forked"></span>
       <span class="counter">${editSession.gist.forks.length || 0}</span>
       Forks
     </a>
-    <a class="menu-item" href="#" click.delegate="copyForStackOverflow()">
+    <a class="menu-item" href="#" click.delegate="copyForStackOverflow()"
+       show.bind="editSession.gist.html_url">
       <img class="octicon" style="margin-bottom: -3px" src="img/stack-overflow-icon.png" height="16" width="16">
       Copy
     </a>
+    <a class="menu-item" href.bind="runUrl" target="_blank">
+      <span class="octicon octicon-link-external"></span>
+      Full Page
+    </a>    
   </nav>
 </template>

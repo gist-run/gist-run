@@ -5,7 +5,7 @@ import {OAuth} from '../github/oauth';
 
 @inject(AccessToken, ApiClient, OAuth)
 export class User {
-  loggingIn = false;
+  signingIn = false;
 
   constructor(accessToken, api, oauth) {
     this.accessToken = accessToken;
