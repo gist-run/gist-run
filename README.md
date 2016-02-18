@@ -59,7 +59,7 @@ git add dist -f
 Remove-Item jspm_packages\github\primer\primer@2.5.0\docs\* -recurse
 git add jspm_packages -f
 git commit -m "chore(gh-pages): publish"
-git push --set-upstream pages gh-pages:master -f
+git push --set-upstream origin gh-pages -f
 git checkout master
 jspm install
 gulp watch

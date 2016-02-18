@@ -11,7 +11,7 @@
   <input class="gist-description input-contrast" type="text" placeholder="Gist description..."
          value.bind="editSession.description">
 
-  <save-buttons save.call="editSession.save(secret)"
+  <save-buttons save.call="editSession.save(fork, secret)"
                 public.bind="editSession.gist.public"
                 save-action.bind="editSession.saveAction">
   </save-buttons>

@@ -79,16 +79,17 @@ export class EditSession {
   }
 
   resetWorker() {
-    return this.worker.resetFiles(this.files.map(f => f.clone()));
+    return this.worker.resetFiles(this.files.map(f => f.clone()))
+      .then(::this.run);
   }
 
   get saveAction() {
-    return this.gistAdapter.getSaveAction(this.gist);
+    return this.gistAdapter.getSaveAction(this.gist, false);
   }
 
-  save(secret) {
+  save(forceFork, secret) {
     let selected = this.currentFile.name;
-    return this.gistAdapter.save(this.gist, this.files, secret)
+    return this.gistAdapter.save(this.gist, this.files, forceFork, secret)
       .then(gist => {
         this.gist = gist;
         this.files = this.gistAdapter.filesMapToArray(gist.files);

@@ -84,12 +84,15 @@ export class GistAdapter {
     return map;
   }
 
-  getSaveAction(gist) {
+  getSaveAction(gist, forceFork) {
     const existingGist = !!gist.id;
     // existing gist that isn't anonymous? (anonymous gists can't be forked)
     if (this.user.authenticated && existingGist && gist.owner) {
       // user is owner?
       if (gist.owner.login === this.user.login) {
+        if (forceFork) {
+          return saveAction.create;
+        }
         return saveAction.update;
       } else {
         return saveAction.fork;
@@ -99,11 +102,11 @@ export class GistAdapter {
     }
   }
 
-  save(gist, filesArray, secret) {
+  save(gist, filesArray, forceFork, secret) {
     let files;
     let promise;
     let description = gist.description;
-    switch (this.getSaveAction(gist)) {
+    switch (this.getSaveAction(gist, forceFork)) {
       case saveAction.update:
         files = this.getUpdateFiles(gist.files, filesArray);
         promise = this.gists.update(gist.id, { description, files });
