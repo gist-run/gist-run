@@ -1,4 +1,15 @@
-# [GistRun](https://gist.run)
+# GistRun
+
+[GistRun](https://gist.run) runs and edits [GitHub Gists](https://gist.github.com/) (surprise). GistRun is built with [Aurelia](http://aurelia.io), uses the [GitHub API](https://developer.github.com/v3/) and is hosted on [GitHub pages](https://pages.github.com/). [CloudFlare](https://www.cloudflare.com/) provides DNS and [Heruku](https://www.heroku.com/) hosts GistRun's integration with GitHub's OAuth [web application flow](https://developer.github.com/v3/oauth/#web-application-flow).
+*Many thanks to the providers of these free libraries and services!*
+
+## Why GistRun?
+
+todo
+
+## How does GistRun work?
+
+todo
 
 ## Running The App
 
@@ -37,109 +48,8 @@ To run the app, follow these steps.
   ```
 7. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
 
-> The Skeleton App uses [BrowserSync](http://www.browsersync.io/) for automated page refreshes on code/markup changes concurrently across multiple browsers. If you prefer to disable the mirroring feature set the [ghostMode option](http://www.browsersync.io/docs/options/#option-ghostMode) to false
 
-## Running The App under Electron
-
-To run the app under [Electron](http://electron.atom.io), follow these steps.
-
-1. Install [Electron](http://electron.atom.io)
-
-  ```shell
-  npm install electron-prebuilt -g
-  ```
-2. To start the app, execute the following command:
-
-  ```shell
-  electron index.js
-  ```
->**Note:** If you use electron every time or are packaging and so-forth, Then change this line in package.json from
-`"main": "dist/main.js",` to `"main": "index.js",`
-Build the app (this will give you a dist directory)
-```shell
-gulp build
-```
-To start the app, execute the following command:
-```shell
-   electron .
-```
-
-
-## Bundling
-Bundling is performed by [Aurelia Bundler](http://github.com/aurelia/bundler). A gulp task is already configured for that. Use the following command to bundle the app:
-
-  ```shell
-    gulp bundle
-  ```
-
-You can also unbundle using the command bellow:
-
-  ```shell
-  gulp unbundle
-  ```
-#### Configuration
-The configuration is done by ```bundles.json``` file.
-##### Optional
-Under ```options``` of ```dist/aurelia``` add ```rev: true``` to add bundle file revision/version.
-
-## Running The Unit Tests
-
-To run the unit tests, first ensure that you have followed the steps above in order to install all dependencies and successfully build the library. Once you have done that, proceed with these additional steps:
-
-1. Ensure that the [Karma](http://karma-runner.github.io/) CLI is installed. If you need to install it, use the following command:
-
-  ```shell
-  npm install -g karma-cli
-  ```
-2. Install Aurelia libs for test visibility:
-
-```shell
-jspm install aurelia-framework
-jspm install aurelia-http-client
-jspm install aurelia-router
-```
-3. You can now run the tests with this command:
-
-  ```shell
-  karma start
-  ```
-
-## Running The E2E Tests
-Integration tests are performed with [Protractor](http://angular.github.io/protractor/#/).
-
-1. Place your E2E-Tests into the folder ```test/e2e/src```
-2. Install the necessary webdriver
-
-  ```shell
-  gulp webdriver-update
-  ```
-
-3. Configure the path to the webdriver by opening the file ```protractor.conf.js``` and adjusting the ```seleniumServerJar``` property. Typically its only needed to adjust the version number.
-
-4. Make sure your app runs and is accessible
-
-  ```shell
-  gulp watch
-  ```
-
-5. In another console run the E2E-Tests
-
-  ```shell
-  gulp e2e
-  ```
-
-## Exporting bundled production version
-A gulp task is already configured for that. Use the following command to export the app:
-
-  ```shell
-    gulp export
-  ```
-The app will be exported into ```export``` directory preserving the directory structure.
-#### Configuration
-The configuration is done by ```bundles.json``` file.
-In addition, ```export.json``` file is available for including individual files.
-
-# gh-pages
+# Publishing to GitHub Pages
 
 ```shell
 git branch -D gh-pages
@@ -148,7 +58,7 @@ gulp build
 git add dist -f
 Remove-Item jspm_packages\github\primer\primer@2.5.0\docs\* -recurse
 git add jspm_packages -f
-git commit -m "chore(gh-pages): publish" 
+git commit -m "chore(gh-pages): publish"
 git push --set-upstream pages gh-pages:master -f
 git checkout master
 jspm install

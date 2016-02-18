@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head>    
+    <title>GistRun</title>
+    <meta name="description" content="Bring your Gists to life with GistRun! Create or update GitHub Gists, share on StackOverflow and more.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://gist.run">
     <script>
       if (location.host === 'gist.run' && location.protocol !== 'https:') {
         location.protocol = 'https';
@@ -8,13 +12,10 @@
         location.href = 'https://gist.run';
       }
     </script>
-    <title>GistRun</title>
+    <link rel="icon" href="img/favicon32x32.ico">
     <link rel="stylesheet" href="jspm_packages/github/github/octicons@3.3.0/octicons.css">
     <link rel="stylesheet" href="jspm_packages/github/primer/primer@2.5.0/css/primer.css">
-    <link rel="canonical" href="https://gist.run">
-    <link rel="icon" href="img/favicon32x32.ico">
     <link rel="stylesheet" href="styles/styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body aurelia-app="main">
