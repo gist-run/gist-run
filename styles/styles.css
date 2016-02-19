@@ -13,6 +13,25 @@ body {
   margin: auto;
 }
 
+.fallback-container {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  position: static;
+  padding: 15px;
+}
+
+.fallback-container > img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 15px;
+}
+
+.fallback-container > p {
+  font-size: 18px;
+}
+
 header {
   flex: 0 0 auto;
 
