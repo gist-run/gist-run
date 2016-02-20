@@ -1,13 +1,14 @@
 import {computedFrom} from 'aurelia-framework';
+import {includeEventsIn} from 'aurelia-event-aggregator';
 import {RunEvent} from './run-event';
 import {CurrentFileChangedEvent} from './current-file-changed-event';
 import {File} from './file';
 import {stringComparisonOrdinalIgnoreCase} from '../util';
 
 export class EditSession {
-  constructor(gist, eventAggregator, worker, gistAdapter, queryString) {
+  constructor(gist, worker, gistAdapter, queryString) {
+    includeEventsIn(this);
     this.gist = gist;
-    this.eventAggregator = eventAggregator;
     this.worker = worker;
     this.gistAdapter = gistAdapter;
     this.queryString = queryString;
@@ -28,12 +29,12 @@ export class EditSession {
   }
   set currentFile(file) {
     this._currentFile = file;
-    this.eventAggregator.publish(new CurrentFileChangedEvent(file));
+    this.publish(new CurrentFileChangedEvent(file));
   }
 
   run() {
     if (this.autoRun) {
-      this.eventAggregator.publish(new RunEvent());
+      RunEvent.publish();
     }
   }
 

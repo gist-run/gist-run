@@ -1,5 +1,4 @@
 import {inject} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
 import {EditSessionFactory} from '../editing/edit-session-factory';
 import {CurrentFileChangedEvent} from '../editing/current-file-changed-event';
 import {QueryString} from '../editing/query-string';
@@ -7,15 +6,14 @@ import {defaultGist} from '../github/default-gist';
 import {Importer} from '../import/importer';
 import {Focus} from './focus';
 
-@inject(EditSessionFactory, Importer, QueryString, EventAggregator, Focus)
+@inject(EditSessionFactory, Importer, QueryString, Focus)
 export class App {
   editSession = null;
 
-  constructor(editSessionFactory, importer, queryString, eventAggregator, focus) {
+  constructor(editSessionFactory, importer, queryString, focus) {
     this.editSessionFactory = editSessionFactory;
     this.importer = importer;
     this.queryString = queryString;
-    this.eventAggregator = eventAggregator;
     this.focus = focus;
   }
 
@@ -28,12 +26,11 @@ export class App {
   }
 
   setEditSession(editSession) {
-    if (this.currentFileChangedSubscription) {
-      this.currentFileChangedSubscription.dispose();
+    if (this.fileChangedSub) {
+      this.fileChangedSub.dispose();
     }
     this.editSession = editSession;
-    this.currentFileChangedSubscription = this.eventAggregator
-      .subscribe(CurrentFileChangedEvent, ::this.currentFileChanged);
+    this.fileChangedSub = editSession.subscribe(CurrentFileChangedEvent, ::this.currentFileChanged);
   }
 
   activate() {

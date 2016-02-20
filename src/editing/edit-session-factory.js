@@ -1,14 +1,12 @@
 import {inject} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
 import {GistAdapter} from './gist-adapter';
 import {WorkerClient} from '../worker/worker-client';
 import {EditSession} from './edit-session';
 import {QueryString} from './query-string';
 
-@inject(EventAggregator, WorkerClient, GistAdapter, QueryString)
+@inject(WorkerClient, GistAdapter, QueryString)
 export class EditSessionFactory {
-  constructor(eventAggregator, worker, gistAdapter, queryString) {
-    this.eventAggregator = eventAggregator;
+  constructor(worker, gistAdapter, queryString) {
     this.worker = worker;
     this.gistAdapter = gistAdapter;
     this.queryString = queryString;
@@ -17,7 +15,6 @@ export class EditSessionFactory {
   create(gist) {
     let editSesson = new EditSession(
       gist,
-      this.eventAggregator,
       this.worker,
       this.gistAdapter,
       this.queryString);
