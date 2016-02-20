@@ -13,7 +13,7 @@ export class JSFiddleImporter {
     // todo: external resources and frameworks...
 
     return  {
-      description: title + ' - ' + description,
+      description: (title + ' - ' + description).replace(/(^ - )|( - )$/, ''),
       files: {
         'index.html': {
           type: 'text/html',
