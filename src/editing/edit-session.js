@@ -1,18 +1,24 @@
 import {computedFrom} from 'aurelia-framework';
 import {RunEvent} from './run-event';
 import {CurrentFileChangedEvent} from './current-file-changed-event';
-import {getEditorMode} from './editor-mode';
 import {File} from './file';
+import {stringComparisonOrdinalIgnoreCase} from '../util';
 
 export class EditSession {
-  constructor(gist, eventAggregator, worker, gistAdapter) {
+  constructor(gist, eventAggregator, worker, gistAdapter, queryString) {
     this.gist = gist;
     this.eventAggregator = eventAggregator;
     this.worker = worker;
     this.gistAdapter = gistAdapter;
+    this.queryString = queryString;
     this.autoRun = true;
     this.files = gistAdapter.filesMapToArray(gist.files);
+    this.sortFiles();
     this._currentFile = this.files[0];
+  }
+
+  sortFiles() {
+    this.files.sort((a, b) => stringComparisonOrdinalIgnoreCase(a.name, b.name));
   }
 
   _currentFile = null;
@@ -58,6 +64,7 @@ export class EditSession {
   renameFile(file, name) {
     this.worker.deleteFile(file.clone())
       .then(() => file.rename(name))
+      .then(() => this.sortFiles())
       .then(() => this.worker.updateFile(file.clone()))
       .then(::this.run);
   }
@@ -93,6 +100,7 @@ export class EditSession {
       .then(gist => {
         this.gist = gist;
         this.files = this.gistAdapter.filesMapToArray(gist.files);
+        this.queryString.write(gist, false);
         return this.resetWorker();
       })
       .then(() => this.currentFile = this.files.find(f => f.name === selected) || this.files[0]);

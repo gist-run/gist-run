@@ -73,21 +73,4 @@ export class Gists {
       })
       .then(fork => this.load(fork.id));
   }
-
-  fromQuery(query) {
-    if (query.length) {
-      let args = deparam(query.substring(1));
-      if (args.id) {
-        return this.load(args.id, args.sha);
-      }
-    }
-    return new Promise(resolve => resolve(null));
-  }
-
-  toQuery(gist, withSha) {
-    if (withSha) {
-      return param({ id: gist.id, sha: gist.history[0].version });
-    }
-    return param({ id: gist.id });
-  }
 }

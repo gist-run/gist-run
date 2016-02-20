@@ -27,17 +27,13 @@ export class GistAdapter {
 
   filesMapToArray(filesMap) {
     let files = [];
-    for (name in filesMap) {
+    for (let name in filesMap) {
       let gistFile = filesMap[name];
       let file = new File(toUrl(name), gistFile.type, gistFile.content);
-      if (file.name === 'index.html') {
-        files.unshift(file);
-      } else {
-        files.push(file);
-      }
+      files.push(file);
     }
     if (files.findIndex(f => f.name === 'index.html')) {
-      files.unshift(new File('index.html', 'text/html', defaultIndexHtml));
+      files.push(new File('index.html', 'text/html', defaultIndexHtml));
     }
     return files;
   }
@@ -55,7 +51,7 @@ export class GistAdapter {
   getUpdateFiles(filesMap, filesArray) {
     let files = filesArray.slice(0);
     let map = {};
-    for (name in filesMap) {
+    for (let name in filesMap) {
       let index = files.findIndex(f => f.originalName === name);
       let filename = toFilename(name);
       if (index === -1) {
@@ -104,29 +100,20 @@ export class GistAdapter {
 
   save(gist, filesArray, forceFork, secret) {
     let files;
-    let promise;
     let description = gist.description;
     switch (this.getSaveAction(gist, forceFork)) {
       case saveAction.update:
         files = this.getUpdateFiles(gist.files, filesArray);
-        promise = this.gists.update(gist.id, { description, files });
-        break;
+        return this.gists.update(gist.id, { description, files });
       case saveAction.fork:
-        promise = this.gists.fork(gist.id)
+        return this.gists.fork(gist.id)
           .then(gist => {
             files = this.getUpdateFiles(gist.files, filesArray);
             return this.gists.update(gist.id, { public: !secret, description, files });
           });
-        break;
       case saveAction.create:
         files = this.getCreateFiles(filesArray);
-        promise = this.gists.create({ public: !secret, description, files });
-        break;
+        return this.gists.create({ public: !secret, description, files });
     }
-
-    return promise.then(gist => {
-      history.pushState(null, window.title, '?' + this.gists.toQuery(gist, false));
-      return gist;
-    });
   }
 }

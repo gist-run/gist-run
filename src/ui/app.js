@@ -1,24 +1,20 @@
 import {inject} from 'aurelia-framework';
-
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {EditSessionFactory} from '../editing/edit-session-factory';
 import {CurrentFileChangedEvent} from '../editing/current-file-changed-event';
-
-import {Gists} from '../github/gists';
-import {User} from '../github/user';
+import {QueryString} from '../editing/query-string';
 import {defaultGist} from '../github/default-gist';
-
+import {Importer} from '../import/importer';
 import {Focus} from './focus';
 
-@inject(EditSessionFactory, Gists, User, EventAggregator, Focus)
+@inject(EditSessionFactory, Importer, QueryString, EventAggregator, Focus)
 export class App {
-  user = null;
   editSession = null;
 
-  constructor(editSessionFactory, gists, user, eventAggregator, focus) {
+  constructor(editSessionFactory, importer, queryString, eventAggregator, focus) {
     this.editSessionFactory = editSessionFactory;
-    this.gists = gists;
-    this.user = user;
+    this.importer = importer;
+    this.queryString = queryString;
     this.eventAggregator = eventAggregator;
     this.focus = focus;
   }
@@ -41,18 +37,9 @@ export class App {
   }
 
   activate() {
-    return Promise.all([
-      this.gists.fromQuery(location.search)
-        .catch(reason => null)
-        .then(gist => {
-          if (!gist) {
-            return this.newGist();
-          }
-          return this.editSessionFactory.create(gist)
-            .then(editSesson => this.setEditSession(editSesson));
-        }),
-      this.user.load().catch()
-    ]);
+    return this.queryString.read()
+      .then(gist => this.editSessionFactory.create(gist))
+      .then(editSesson => this.setEditSession(editSesson));
   }
 
   attached() {
@@ -63,34 +50,17 @@ export class App {
   }
 
   newGist() {
-    history.replaceState(null, document.title, '/');
+    this.queryString.clear();
     return this.editSessionFactory.create(defaultGist)
       .then(editSesson => this.setEditSession(editSesson));
   }
 
-  loadGist(urlOrId) {
-    let match = /(?:^|\/)([\da-f]{20})(?:\/([\da-f]{40})){0,1}$/.exec(urlOrId);
-    if (match === null) {
-      return;
-    }
-    let id = match[1];
-    let sha = match[2];
-    let query;
-    if (sha) {
-      query = `?id=${id}&sha=${sha}`;
-    } else {
-      query = `?id=${id}`;
-    }
-
-    this.gists.fromQuery(query)
+  import(urlOrId) {
+    this.importer.import(urlOrId)
       .then(gist => {
-        if (!gist) {
-          return;
-        }
-        history.pushState(null, window.title, '?' + this.gists.toQuery(gist, !!sha));
-        return this.editSessionFactory.create(gist)
-          .then(editSesson => this.setEditSession(editSesson));
+        this.queryString.write(gist, true);
+        return this.editSessionFactory.create(gist);
       })
-      .catch();
+      .then(editSesson => this.setEditSession(editSesson));
   }
 }

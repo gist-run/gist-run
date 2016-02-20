@@ -11,7 +11,7 @@ export class User {
     this.accessToken = accessToken;
     this.api = api;
     this.oauth = oauth;
-    this.setAnonymous();
+    this.load();
   }
 
   setAnonymous() {

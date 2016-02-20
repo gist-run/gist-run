@@ -11,7 +11,6 @@ function formatFile(file) {
   return `**${name}**\n\n<!-- language: lang-${extension} -->\n\n${content}`;
 }
 
-export function format(editSession) {
-  return `[**Here's an example:**](https://gist.run?id=${editSession.gist.id})\n\n`
-    + editSession.files.map(file => formatFile(file)).join('\n\n');
+export function getStackOverflowMarkdown(editSession) {
+  return `[**Here's an example:**](https://gist.run?id=${editSession.gist.id})\n\n` + editSession.files.map(file => formatFile(file)).join('\n\n');
 }

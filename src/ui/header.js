@@ -3,8 +3,8 @@ import {User} from '../github/user';
 
 @inject(User)
 export class Header {
-  @bindable loadGist;
-  @bindable newGist;
+  @bindable import;
+  @bindable new;
 
   constructor(user) {
     this.user = user;

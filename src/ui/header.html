@@ -1,11 +1,11 @@
 <template>
   <img class="header-logo" src="img/logo.png">
 
-  <form class="header-load-gist">
+  <form class="header-load-gist" submit.delegate="import({ urlOrId: urlOrIdInput.value})">
     <div class="input-group">
-      <input class="input-mini" type="text" placeholder="Gist URL or ID..." ref="urlOrIdInput">
+      <input class="input-mini" type="text" placeholder="Gist/Plunker/jsFiddle URL..." ref="urlOrIdInput">
       <span class="input-group-button">
-        <button class="btn btn-sm" click.delegate="loadGist({ urlOrId: urlOrIdInput.value})">
+        <button class="btn btn-sm" type="submit">
           <span class="octicon octicon-repo-pull"></span>
         </button>
       </span>
@@ -29,7 +29,7 @@
   </button>
 
   <button class="btn btn-sm right" type="button"
-          click.delegate="newGist()">
+          click.delegate="new()">
     New Gist
   </button>
 </template>

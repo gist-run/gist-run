@@ -20,6 +20,18 @@ export function param(obj) {
   return parts.join('&');
 }
 
+export function stringComparisonOrdinalIgnoreCase(a, b) {
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+  if (a > b) {
+    return 1;
+  }
+  if (a < b) {
+    return -1;
+  }
+  return 0;
+}
+
 const contentTypeMap = {
   css: 'text/css',
   js: 'application/javascript',
