@@ -82,6 +82,7 @@ git add -u
 git commit -m "chore(gh-pages): publish"
 git push --set-upstream origin gh-pages -f
 git checkout master
+Remove-Item -Recurse -Force jspm_packages
 jspm install
 gulp watch
 ```
