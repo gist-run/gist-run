@@ -32,7 +32,7 @@ export class GistAdapter {
       let file = new File(toUrl(name), gistFile.type, gistFile.content);
       files.push(file);
     }
-    if (files.findIndex(f => f.name === 'index.html')) {
+    if (!files.find(f => f.name === 'index.html')) {
       files.push(new File('index.html', 'text/html', defaultIndexHtml));
     }
     return files;
