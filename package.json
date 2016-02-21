@@ -60,6 +60,7 @@
     "dependencies": {
       "ace": "github:ajaxorg/ace-builds@^1.2.2",
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0-beta.1",
+      "aurelia-event-aggregator": "npm:aurelia-event-aggregator@^1.0.0-beta.1.1.1",
       "aurelia-framework": "npm:aurelia-framework@^1.0.0-beta.1",
       "aurelia-logging": "npm:aurelia-logging@^1.0.0-beta.1",
       "aurelia-logging-console": "npm:aurelia-logging-console@^1.0.0-beta.1",
