@@ -1,37 +1,3 @@
-body {
-  position: fixed;
-	height: 100%;
-	width: 100%;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.splash {
-  height: 90%;
-  max-width: 90%;
-  margin: auto;
-}
-
-.fallback-container {
-  max-width: 980px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  position: static;
-  padding: 15px;
-}
-
-.fallback-container > img {
-  max-width: 100%;
-  height: auto;
-  margin-top: 15px;
-}
-
-.fallback-container > p {
-  font-size: 18px;
-}
-
 header {
   flex: 0 0 auto;
 
@@ -157,16 +123,6 @@ result-panel {
 result-panel iframe {
   width: 100%;
   flex-grow: 1;
-}
-
-rate-alert {
-  flex: 0 0 auto;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-rate-alert > .flash {
-  margin-bottom: 15px;
 }
 
 .btn-secret {
