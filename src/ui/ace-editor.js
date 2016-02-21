@@ -62,7 +62,9 @@ export class AceEditor {
       showGutter: false,
       cursorStyle: 'slim',
       useSoftTabs: true,
-      tabSize: 2
+      tabSize: 2,
+      displayIndentGuides: false,
+      showInvisibles: false
     });
 
     // set initial values.
