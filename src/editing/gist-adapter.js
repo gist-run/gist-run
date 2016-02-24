@@ -39,9 +39,10 @@ export class GistAdapter {
   }
 
   getCreateFiles(filesArray) {
+    let files = filesArray.filter(f => f.content !== '');
     let map = {};
-    for (let i = 0; i < filesArray.length; i++) {
-      let file = filesArray[i];
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
       let filename = toFilename(file.name);
       map[filename] = { content: file.content };
     }
@@ -49,7 +50,7 @@ export class GistAdapter {
   }
 
   getUpdateFiles(filesMap, filesArray) {
-    let files = filesArray.slice(0);
+    let files = filesArray.filter(f => f.content !== '');
     let map = {};
     for (let name in filesMap) {
       let index = files.findIndex(f => f.originalName === name);
