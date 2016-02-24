@@ -32,7 +32,7 @@ export class JSFiddleImporter {
   }
 
   canImport(urlOrId) {
-    return /^https:\/\/jsfiddle.net\/[\da-z]+(\/\d+)?\/?$/.test(urlOrId);
+    return /^http(?:s)?:\/\/jsfiddle.net(?:\/[^\\]+)?\/[\da-z]+(\/\d+)?\/?$/.test(urlOrId);
   }
 
   import(urlOrId) {
