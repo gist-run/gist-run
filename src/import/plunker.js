@@ -1,4 +1,4 @@
-const urlRegex = /^http:\/\/plnkr.co\/(?:edit\/)?([\da-zA-Z]{6})/;
+const urlRegex = /^http(?:s)?:\/\/(?:embed.)?plnkr.co\/(?:edit\/)?([\da-zA-Z]{6,})/;
 
 export class PlunkerImporter {
   canImport(urlOrId) {
