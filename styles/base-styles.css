@@ -41,3 +41,11 @@ rate-alert {
 rate-alert > .flash {
   margin-bottom: 15px;
 }
+
+.alertify-logs > .success {
+  background-color: rgba(86, 158, 61, 0.8);
+}
+
+.alertify-logs > .error {
+  background-color: rgba(179, 54, 48, 0.8);
+}

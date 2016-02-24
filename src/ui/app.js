@@ -5,6 +5,7 @@ import {QueryString} from '../editing/query-string';
 import {defaultGist} from '../github/default-gist';
 import {Importer} from '../import/importer';
 import {Focus} from './focus';
+import alertify from 'alertify.js';
 
 @inject(EditSessionFactory, Importer, QueryString, Focus)
 export class App {
@@ -58,6 +59,7 @@ export class App {
         this.queryString.write(gist, true);
         return this.editSessionFactory.create(gist);
       })
-      .then(editSesson => this.setEditSession(editSesson));
+      .then(editSesson => this.setEditSession(editSesson))
+      .then(() => alertify.success('Import successful.'), reason => alertify.error(reason));
   }
 }

@@ -37,7 +37,15 @@ export class JSFiddleImporter {
 
   import(urlOrId) {
     return fetch(`https://crossorigin.me/${urlOrId}`)
-      .then(response => response.text())
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        }
+        if (response.status === 404) {
+          return Promise.reject('jsFiddle not found.');
+        }
+        return Promise.reject('Error loading jsFiddle.');
+      })
       .then(page => this.fiddleHtmlToGist(page));
   }
 }

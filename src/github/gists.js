@@ -21,8 +21,10 @@ export class Gists {
           // todo: handle truncated files
           return response.json();
         }
-        // todo: handle rate limit, etc
-        throw new Error('unable to get gist');
+        if (response.status === 404) {
+          return Promise.reject('Gist not found.');
+        }
+        return Promise.reject('Error loading Gist.');
       });
   }
 

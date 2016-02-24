@@ -138,18 +138,6 @@ result-panel iframe {
   border-color: #dad3a3;
 }
 
-.btn-danger {
-  color: #900;
-}
-
-.btn-danger:hover {
-  color: #fff;
-  background-color: #b33630;
-  background-image: -webkit-linear-gradient(#dc5f59, #b33630);
-  background-image: linear-gradient(#dc5f59, #b33630);
-  border-color: #cd504a;
-}
-
 .btn-primary {
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.15);

@@ -8,7 +8,15 @@ export class PlunkerImporter {
   import(urlOrId) {
     let plunkerID = urlRegex.exec(urlOrId)[1];
     return fetch(`https://api.plnkr.co/plunks/${plunkerID}`)
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        if (response.status === 404) {
+          return Promise.reject('Plunk not found.');
+        }
+        return Promise.reject('Error loading plunk.');
+      })
       .then(plunk => {
         let gist = { description: plunk.description, files: {} };
         for (let name in plunk.files) {

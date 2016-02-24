@@ -55,7 +55,7 @@ To run the app, follow these steps.
 git branch -D gh-pages
 git checkout -b gh-pages
 gulp build
-jspm bundle 'config' + 'main' + 'util' + 'editing/*' + 'github/*' + 'import/*' + 'ui/*' + 'ui/embed/*' + 'worker/*' + 'ui/embed/*.html!text' + 'ui/*.html!text' + npm:aurelia-framework@1.0.0-beta.1.0.8 + npm:aurelia-bootstrapper@1.0.0-beta.1.0.2 + npm:aurelia-templating-binding@1.0.0-beta.1.0.2 + npm:aurelia-templating-resources@1.0.0-beta.1.0.4 + npm:aurelia-templating-router@1.0.0-beta.1.0.5 + npm:aurelia-loader-default@1.0.0-beta.1.0.2 + npm:aurelia-history-browser@1.0.0-beta.1.0.1 + split.js + text dist/bundle.js --inject
+jspm bundle 'config' + 'main' + 'util' + 'editing/*' + 'github/*' + 'import/*' + 'ui/*' + 'ui/embed/*' + 'worker/*' + 'ui/embed/*.html!text' + 'ui/*.html!text' + npm:aurelia-framework@1.0.0-beta.1.0.8 + npm:aurelia-bootstrapper@1.0.0-beta.1.0.2 + npm:aurelia-templating-binding@1.0.0-beta.1.0.2 + npm:aurelia-templating-resources@1.0.0-beta.1.0.4 + npm:aurelia-templating-router@1.0.0-beta.1.0.5 + npm:aurelia-loader-default@1.0.0-beta.1.0.2 + npm:aurelia-history-browser@1.0.0-beta.1.0.1 + alertify.js + split.js + text dist/bundle.js --inject
 git add dist/bundle.js -f
 git add jspm_packages/system.js -f
 git add jspm_packages/github/ajaxorg/ace-builds@1.2.3 -f
