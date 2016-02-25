@@ -5,7 +5,7 @@ import {OAuth} from '../github/oauth';
 
 @inject(AccessToken, ApiClient, OAuth)
 export class User {
-  signingIn = false;
+  loading = false;
 
   constructor(accessToken, api, oauth) {
     this.accessToken = accessToken;
@@ -23,6 +23,7 @@ export class User {
 
   load() {
     if (this.accessToken.value) {
+      this.loading = true;
       return this.api.fetch('user')
         .then(response => {
           if (response.ok) {
@@ -39,17 +40,19 @@ export class User {
           } else {
             this.setAnonymous();
           }
-        });
+        })
+        .catch()
+        .then(() => this.loading = false);
     }
     this.setAnonymous();
     return Promise.resolve(null);
   }
 
   signIn() {
-    this.signingIn = true;
+    this.loading = true;
     this.oauth.login()
       .then(() => this.load())
       .catch()
-      .then(() => this.signingIn = false);
+      .then(() => this.loading = false);
   }
 }
