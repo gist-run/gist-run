@@ -31,11 +31,20 @@ export class App {
 
   activate() {
     return this.queryString.read()
-      .then(gist => this.editSessionFactory.create(gist))
+      .then(gist => {
+        this.gist = gist;
+        return this.editSessionFactory.create(gist);
+      })
       .then(editSession => this.editSession = editSession);
   }
 
   attached() {
     setTimeout(() => this.editSession.run());
+  }
+
+  reset() {
+    this.editSessionFactory.create(this.gist)
+      .then(editSession => this.editSession = editSession)
+      .then(() => this.editSession.run());
   }
 }

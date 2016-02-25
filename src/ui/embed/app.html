@@ -11,12 +11,16 @@
       ${gist.description.length ? gist.description : 'untitled gist'}
     </a>
 
-    <select class="select-sm right" value.bind="currentItem">
-      <option model.bind="null">Result</option>
-      <optgroup label="Files:">
-        <option repeat.for="file of files" model.bind="file">${file.name}</option>
-      </optgroup>
-    </select>
+    <div class="right">
+      <select class="select-sm" value.bind="currentItem">
+        <option model.bind="null">Result</option>
+        <optgroup label="Files:">
+          <option repeat.for="file of files" model.bind="file">${file.name}</option>
+        </optgroup>
+      </select>
+
+      <button class="btn btn-sm" click.delegate="reset()">Reset</button>
+    </div>
   </div>
 
   <ace-editor with.bind="editSession"
