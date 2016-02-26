@@ -1,6 +1,7 @@
 <template bindables="editSession">
   <require from="./ace-editor"></require>
   <require from="./set-focus"></require>
+  <require from="./ga"></require>
 
   <div class="file-header" with.bind="editSession">
     <div class="input-group filename" show.bind="currentFile.name !== 'index.html'">
@@ -9,7 +10,8 @@
              value.one-way="currentFile.name"
              input.delegate="renameFile(currentFile, $event.target.value) & debounce:500">
       <span class="input-group-button">
-        <button class="btn" click.delegate="deleteFile(currentFile)">
+        <button class="btn" click.delegate="deleteFile(currentFile)"
+                ga ga-category="editor" ga-action="delete-file">
           <span class="octicon octicon-trashcan text-closed"></span>
         </button>
       </span>

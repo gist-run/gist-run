@@ -13,6 +13,6 @@ export class NavPanel {
   copyForStackOverflow() {
     let markdown = getStackOverflowMarkdown(this.editSession);
     copyTextToClipboard(markdown);
-    alertify.success(successHtml);
+    alertify.success(successHtml);    
   }
 }

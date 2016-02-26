@@ -1,9 +1,12 @@
 <template>
+  <require from="./ga"></require>
+
   <nav class="menu">
     <a repeat.for="file of editSession.files"
        class="menu-item ${editSession.currentFile === file ? 'selected' : ''}"
        href="#"
-       click.delegate="editSession.currentFile = file">
+       click.delegate="editSession.currentFile = file"
+       ga ga-category="nav-panel" ga-action="file">
        <span class="unnamed-file" show.bind="file.name === ''">unnamed</span>
        <span show.bind="file.name !== ''">${file.name}</span>
    </a>
@@ -11,29 +14,34 @@
 
   <nav class="menu">
     <a class="menu-item" href="${editSession.gist.html_url}" target="_blank"
-       show.bind="editSession.gist.html_url">
+       show.bind="editSession.gist.html_url"
+       ga ga-category="nav-panel" ga-action="gist">
       <span class="octicon octicon-gist"></span>
       Gist
     </a>
     <a class="menu-item" href="${editSession.gist.html_url}/revisions" target="_blank"
-       show.bind="editSession.gist.html_url">
+       show.bind="editSession.gist.html_url"
+       ga ga-category="nav-panel" ga-action="revisions">
       <span class="octicon octicon-git-commit"></span>
       <span class="counter">${editSession.gist.history.length || 0}</span>
       Revisions
     </a>
     <a class="menu-item" href="${editSession.gist.html_url}/forks" target="_blank"
-       show.bind="editSession.gist.html_url">
+       show.bind="editSession.gist.html_url"
+       ga ga-category="nav-panel" ga-action="forks">
       <span class="octicon octicon-repo-forked"></span>
       <span class="counter">${editSession.gist.forks.length || 0}</span>
       Forks
     </a>
     <a class="menu-item" href="#" click.delegate="copyForStackOverflow()"
-       show.bind="editSession.gist.html_url">
+       show.bind="editSession.gist.html_url"
+       ga ga-category="nav-panel" ga-action="stack-overflow-copy">
       <img class="octicon" style="margin-bottom: -3px" src="img/stack-overflow-icon.png" height="16" width="16">
       Copy
     </a>
     <a class="menu-item" href="embed.html?id=${editSession.gist.id}" target="_blank"
-       show.bind="editSession.gist.html_url">
+       show.bind="editSession.gist.html_url"
+       ga ga-category="nav-panel" ga-action="embed">
       <span class="octicon octicon-code"></span>
       Embed
     </a>
@@ -41,7 +49,8 @@
       <span class="octicon octicon-link-external"></span>
       Run Outside
     </a> -->
-    <a class="menu-item" href="https://github.com/gist-run/gist-run/blob/master/README.md" target="_blank">
+    <a class="menu-item" href="https://github.com/gist-run/gist-run/blob/master/README.md" target="_blank"
+       ga ga-category="nav-panel" ga-action="about">
       <span class="octicon octicon-info"></span>
       About
     </a>

@@ -1,10 +1,15 @@
 <template bindable="editSession">
   <require from="./save-buttons"></require>
+  <require from="./ga"></require>
 
-  <button class="btn" click.delegate="editSession.addFile('')">Add File</button>
+  <button class="btn" click.delegate="editSession.addFile('')"
+          ga ga-category="editor-commands" ga-action="new-file">
+    Add File
+  </button>
 
   <button class="btn ${editSession.autoRun ? 'btn-danger' : 'btn-primary'} m-l-5"
-          click.delegate="editSession.toggleAutoRun()">
+          click.delegate="editSession.toggleAutoRun()"
+          ga ga-category="editor-commands" ga-action="run-stop">
     ${editSession.autoRun ? 'Stop' : 'Run'}
   </button>
 
