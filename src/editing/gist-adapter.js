@@ -115,6 +115,8 @@ export class GistAdapter {
       case saveAction.create:
         files = this.getCreateFiles(filesArray);
         return this.gists.create({ public: !secret, description, files });
+      default:
+        return Promise.reject('Unexpected save action.');
     }
   }
 }

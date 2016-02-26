@@ -12,5 +12,5 @@ function formatFile(file) {
 }
 
 export function getStackOverflowMarkdown(editSession) {
-  return `[**Here's an example:**](https://gist.run?id=${editSession.gist.id})\n\n` + editSession.files.map(file => formatFile(file)).join('\n\n');
+  return `**Here's an example: https://gist.run?id=${editSession.gist.id}**\n\n` + editSession.files.map(file => formatFile(file)).join('\n\n');
 }

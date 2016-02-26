@@ -1,19 +1,19 @@
 <template>
   <button class="btn btn-secret tooltipped tooltipped-s" aria-label="Secret gists are hidden from search engines but visible to anyone you give the URL."
-          click.delegate="save({ fork: false, secret: true })"
+          click.delegate="saveClick($event, { fork: false, secret: true })"
           show.bind="saveAction !== 'Update'">
     ${saveAction === 'Fork' ? 'Fork to' : 'Create'} Secret Gist
   </button>
-  <button class="btn m-l-5" click.delegate="save({ fork: false, secret: false })"
+  <button class="btn m-l-5" click.delegate="saveClick($event, { fork: false, secret: false })"
           show.bind="saveAction !== 'Update'">
     ${saveAction === 'Fork' ? 'Fork to' : 'Create'} Public Gist
   </button>
 
-  <button class="btn btn-primary" click.delegate="save({ fork: false })"
+  <button class="btn btn-primary" click.delegate="saveClick($event, { fork: false })"
           show.bind="saveAction === 'Update'">
     Update${public ? ' ' : ' Secret '}Gist
   </button>
-  <button class="btn m-l-5" click.delegate="save({ fork: true })"
+  <button class="btn m-l-5" click.delegate="saveClick($event, { fork: true })"
           show.bind="saveAction === 'Update'">
     Fork${public ? ' ' : ' Secret '}Gist
   </button>
