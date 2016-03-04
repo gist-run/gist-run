@@ -20,7 +20,7 @@
   </div>
   <ace-editor focus-target="editor"
               value.one-way="editSession.currentFile.content"
-              change.delegate="editSession.updateFile(editSession.currentFile, $event.detail) & debounce:500"
+              change.delegate="editSession.updateFile(editSession.currentFile, $event.detail) & debounce:800"
               mode.bind="editSession.currentFile.editorMode">
   </ace-editor>
 </template>
