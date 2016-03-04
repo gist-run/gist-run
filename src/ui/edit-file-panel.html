@@ -18,10 +18,9 @@
     </div>
     <input type="text" disabled value="index.html" show.bind="currentFile.name === 'index.html'">
   </div>
-  <ace-editor with.bind="editSession"
-              focus-target="editor"
-              value.one-way="currentFile.content"
-              change.delegate="updateFile(currentFile, $event.detail) & debounce:500"
-              mode.bind="currentFile.editorMode">
+  <ace-editor focus-target="editor"
+              value.one-way="editSession.currentFile.content"
+              change.delegate="editSession.updateFile(editSession.currentFile, $event.detail) & debounce:500"
+              mode.bind="editSession.currentFile.editorMode">
   </ace-editor>
 </template>
