@@ -1,12 +1,12 @@
 <template bindables="editSession">
   <require from="./ace-editor"></require>
-  <require from="./set-focus"></require>
+  <require from="./focus-target"></require>
   <require from="./ga"></require>
 
   <div class="file-header" with.bind="editSession">
     <div class="input-group filename" show.bind="currentFile.name !== 'index.html'">
       <input type="text" placeholder="Filename including extension..."
-             set-focus="filename"
+             focus-target="filename"
              value.one-way="currentFile.name"
              input.delegate="renameFile(currentFile, $event.target.value) & debounce:500">
       <span class="input-group-button">
@@ -19,7 +19,7 @@
     <input type="text" disabled value="index.html" show.bind="currentFile.name === 'index.html'">
   </div>
   <ace-editor with.bind="editSession"
-              set-focus="editor"
+              focus-target="editor"
               value.one-way="currentFile.content"
               change.delegate="updateFile(currentFile, $event.detail) & debounce:500"
               mode.bind="currentFile.editorMode">

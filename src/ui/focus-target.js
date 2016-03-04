@@ -2,9 +2,9 @@ import {inject, customAttribute} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {SetFocusEvent} from './focus';
 
-@customAttribute('set-focus')
+@customAttribute('focus-target')
 @inject(Element, EventAggregator)
-export class SetFocus {
+export class FocusTarget {
   constructor(element, eventAggregator) {
     this.element = element;
     this.eventAggregator = eventAggregator;
