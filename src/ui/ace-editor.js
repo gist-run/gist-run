@@ -34,10 +34,15 @@ export class AceEditor {
       this.editor.getSession().setMode(`ace/mode/${this.mode}`);
     }
   }
+  
+  resetUndo() {
+    this.editor.getSession().setUndoManager(new ace.UndoManager());
+  }
 
   valueChanged() {
     if (this.editor && this.editor.getValue() !== this.value) {
       this.editor.setValue(this.value, -1);
+      this.resetUndo();
     }
   }
 
