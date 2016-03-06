@@ -16,6 +16,7 @@ export class EditSession {
     this.files = gistAdapter.filesMapToArray(gist.files);
     this.sortFiles();
     this._currentFile = this.files[0];
+    this.dirty = false;
   }
 
   sortFiles() {
@@ -75,6 +76,7 @@ export class EditSession {
       return;
     }
     file.content = content;
+    this.dirty = true;
     this.worker.updateFile(file.clone())
       .then(::this.run);
   }
@@ -99,6 +101,7 @@ export class EditSession {
     let selected = this.currentFile.name;
     return this.gistAdapter.save(this.gist, this.files, forceFork, secret)
       .then(gist => {
+        this.dirty = false;
         this.gist = gist;
         this.files = this.gistAdapter.filesMapToArray(gist.files);
         this.queryString.write(gist, false);

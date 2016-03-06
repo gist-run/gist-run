@@ -16,6 +16,13 @@ export class App {
     this.importer = importer;
     this.queryString = queryString;
     this.focus = focus;
+    addEventListener('beforeunload', ::this.beforeUnload);
+  }
+
+  beforeUnload(event) {
+    if (this.editSession && this.editSession.dirty) {
+      event.returnValue = 'You have unsaved work in this Gist.';
+    }
   }
 
   currentFileChanged(event) {
