@@ -25,17 +25,18 @@
       }
     </script>
     <link rel="icon" href="img/favicon32x32.ico">
-    <link rel="stylesheet" href="jspm_packages/github/primer/primer@2.5.0/css/primer.css">
+    <link rel="stylesheet" href="node_modules/primer-css/css/primer.css">
     <link rel="stylesheet" href="styles/base-styles.css">
     <link rel="stylesheet" href="styles/embed-styles.css">
   </head>
 
   <body aurelia-app="main">
     <img class="splash" src="img/splash.png">
-    <script src="jspm_packages/system.js"></script>
+    <script src="node_modules/requirejs/require.js"></script>
     <script src="config.js"></script>
+    <script src="bundle.js"></script>
     <script>
-      System.import('aurelia-bootstrapper');
+      require(['aurelia-bootstrapper']);
     </script>
 
     <script>
