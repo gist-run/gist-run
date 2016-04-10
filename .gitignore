@@ -1,6 +1,7 @@
 node_modules
 jspm_packages
 bower_components
+/export
 .idea
 .DS_STORE
 /dist

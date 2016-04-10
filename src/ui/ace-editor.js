@@ -7,10 +7,10 @@ import {
 } from 'aurelia-framework';
 import {DOM} from 'aurelia-pal';
 
-// retrieve ace's base path from the System config
-let base = System.normalizeSync('ace');
-base = base.substr(0, base.length - 3);
-ace.config.set('basePath', base);
+// // retrieve ace's base path from the System config
+// let base = System.normalizeSync('ace');
+// base = base.substr(0, base.length - 3);
+// ace.config.set('basePath', base);
 
 @inject(Element)
 @inlineView('<template></template>')
@@ -34,7 +34,7 @@ export class AceEditor {
       this.editor.getSession().setMode(`ace/mode/${this.mode}`);
     }
   }
-  
+
   resetUndo() {
     this.editor.getSession().setUndoManager(new ace.UndoManager());
   }

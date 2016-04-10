@@ -1,16 +1,14 @@
+import {activate as activateWorker} from './worker/worker-activator';
+
 export function configure(aurelia) {
   aurelia.use.standardConfiguration();
 
   aurelia.start()
     .then(() => {
       if ('serviceWorker' in navigator) {
-        if (/\/embed/.test(location.href)) {
-          aurelia.setRoot('ui/embed/app');
-        } else {
-          aurelia.setRoot('ui/app');
-        }
-        return;
+        let root = /\/embed/.test(location.href) ? 'ui/embed/app' : 'ui/app';
+        return aurelia.setRoot(root).then(activateWorker);
       }
-      aurelia.setRoot('ui/fallback');
+      return aurelia.setRoot('ui/fallback');      
     });
 }

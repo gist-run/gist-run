@@ -1,16 +1,19 @@
 {
   "list": [
-    "index.html",
+    "bundles/*",
+    "img/**/*",
+    "styles/*",
+    "CNAME",
+    "bundle.js",
     "config.js",
-    "favicon.ico",
-    "LICENSE",
-    "jspm_packages/system.js",
-    "jspm_packages/system-polyfills.js",
-    "jspm_packages/system-csp-production.js",
-    "styles/styles.css",
-    "jspm_packages/npm/font-awesome@4.4.0/css/font-awesome.min.css",
-    "jspm_packages/npm/font-awesome@4.4.0/fonts/*",
-    "jspm_packages/github/github/fetch@0.10.1.js",
-    "jspm_packages/github/github/fetch@0.10.1/fetch.js"
+    "embed.html",
+    "index.html",
+    "redirect-target.html",
+    "node_modules/ace-builds/src-min/*",
+    "node_modules/octicons/octicons/octicons.css",
+    "node_modules/octicons/octicons/octicons.woff",
+    "node_modules/octicons/octicons/octicons.ttf",
+    "node_modules/primer-css/css/primer.css",
+    "node_modules/requirejs/require.js"
   ]
 }

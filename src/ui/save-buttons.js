@@ -1,5 +1,5 @@
 import {containerless, bindable} from 'aurelia-framework';
-import alertify from 'alertify.js';
+import alertify from 'alertify';
 
 @containerless()
 export class SaveButtons {

@@ -39,12 +39,12 @@ export class App {
   }
 
   attached() {
-    setTimeout(() => this.editSession.run());
+    this.editSession.resetWorker()
+      .then(::this.editSession.run);
   }
 
   reset() {
-    this.editSessionFactory.create(this.gist)
-      .then(editSession => this.editSession = editSession)
-      .then(() => this.editSession.run());
+    this.editSession = this.editSessionFactory.create(this.gist);
+    this.attached();
   }
 }

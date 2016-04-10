@@ -5,7 +5,7 @@ import {QueryString} from '../editing/query-string';
 import {defaultGist} from '../github/default-gist';
 import {Importer} from '../import/importer';
 import {Focus} from './focus';
-import alertify from 'alertify.js';
+import alertify from 'alertify';
 
 @inject(EditSessionFactory, Importer, QueryString, Focus)
 export class App {
@@ -39,25 +39,17 @@ export class App {
     }
     this.editSession = editSession;
     this.fileChangedSub = editSession.subscribe(CurrentFileChangedEvent, ::this.currentFileChanged);
+    this.editSession.resetWorker().then(::this.editSession.run);
   }
 
   activate() {
     return this.queryString.read()
-      .then(gist => this.editSessionFactory.create(gist))
-      .then(editSesson => this.setEditSession(editSesson));
-  }
-
-  attached() {
-    setTimeout(() => {
-      this.editSession.run();
-      this.focus.set('editor');
-    });
+      .then(gist => this.setEditSession(this.editSessionFactory.create(gist)));
   }
 
   newGist() {
     this.queryString.clear();
-    return this.editSessionFactory.create(defaultGist)
-      .then(editSesson => this.setEditSession(editSesson));
+    this.setEditSession(this.editSessionFactory.create(defaultGist));
   }
 
   import(urlOrId) {
@@ -66,7 +58,7 @@ export class App {
         this.queryString.write(gist, true);
         return this.editSessionFactory.create(gist);
       })
-      .then(editSesson => this.setEditSession(editSesson))
+      .then(::this.setEditSession)
       .then(() => alertify.success('Import successful.'), reason => alertify.error(reason));
   }
 }

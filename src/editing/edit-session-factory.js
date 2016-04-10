@@ -17,7 +17,7 @@ export class EditSessionFactory {
       gist,
       this.worker,
       this.gistAdapter,
-      this.queryString);
-    return editSesson.resetWorker().then(() => editSesson);
+      this.queryString);    
+    return editSesson;
   }
 }

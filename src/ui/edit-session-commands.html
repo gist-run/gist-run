@@ -13,7 +13,7 @@
     ${editSession.autoRun ? 'Stop' : 'Run'}
   </button>
 
-  <input class="gist-description input-contrast" type="text" placeholder="Gist description..."
+  <input class="gist-description form-control input-contrast" type="text" placeholder="Gist description..."
          value.bind="editSession.description">
 
   <save-buttons save.call="editSession.save(fork, secret)"

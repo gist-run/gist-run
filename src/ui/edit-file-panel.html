@@ -1,4 +1,4 @@
-<template bindables="editSession">
+<template bindable="editSession">
   <require from="./ace-editor"></require>
   <require from="./focus-target"></require>
   <require from="./ga"></require>
@@ -6,7 +6,7 @@
   <div class="file-header" with.bind="editSession">
     <form submit.trigger="aceEditor.focus()">
       <div class="input-group filename" show.bind="currentFile.name !== 'index.html'">
-        <input type="text" placeholder="Filename including extension..."
+        <input class="form-control" type="text" placeholder="Filename including extension..."
                focus-target="filename"
                value.one-way="currentFile.name"
                input.delegate="renameFile(currentFile, $event.target.value) & debounce:500">
@@ -17,7 +17,7 @@
           </button>
         </span>
       </div>
-      <input type="text" disabled value="index.html" show.bind="currentFile.name === 'index.html'">
+      <input class="form-control" type="text" disabled value="index.html" show.bind="currentFile.name === 'index.html'">
 
       <!-- need a submit button to make enter-key submit form -->
       <button type="submit" style="display:none">Submit</button>

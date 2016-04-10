@@ -3,7 +3,10 @@ import {workerOrigin, workerPage} from '../config';
 const iframe = document.createElement('iframe');
 iframe.setAttribute('src', workerPage);
 iframe.setAttribute('style', 'display: none');
-document.body.appendChild(iframe);
+
+export function activate() {
+  document.body.appendChild(iframe);
+}
 
 let resolveWorkerPage = null;
 const workerPageReady = new Promise(resolve => resolveWorkerPage = resolve);

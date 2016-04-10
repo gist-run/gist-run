@@ -1,4 +1,4 @@
-import {Split} from 'split.js';
+import Split from 'split';
 import {inject, containerless} from 'aurelia-framework';
 import {DOM} from 'aurelia-pal';
 
