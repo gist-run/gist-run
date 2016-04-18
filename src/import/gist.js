@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {Gists} from '../github/gists';
 
-const gistUrlRegex = /(?:^|\/)([\da-f]{20,32})(?:\/([\da-f]{40})){0,1}$/;
+const gistUrlRegex = /^https:\/\/gist\.github\.com(?:\/[^\/]+)?\/([\da-f]+)(?:\/([\da-f]{40}))?$/;
 
 @inject(Gists)
 export class GistImporter {
