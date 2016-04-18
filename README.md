@@ -1,6 +1,6 @@
 # GistRun
 
-[GistRun](https://gist.run) runs and edits [GitHub Gists](https://gist.github.com/) (surprise). GistRun is built with [Aurelia](http://aurelia.io), uses the [GitHub API](https://developer.github.com/v3/) and is hosted on [GitHub pages](https://pages.github.com/). [CloudFlare](https://www.cloudflare.com/) provides DNS and [Heruku](https://www.heroku.com/) hosts GistRun's integration with GitHub's OAuth [web application flow](https://developer.github.com/v3/oauth/#web-application-flow).
+[GistRun](https://gist.run) runs and edits [GitHub Gists](https://gist.github.com/) (surprise). GistRun is built with [Aurelia](http://aurelia.io), uses the [GitHub API](https://developer.github.com/v3/) and is hosted on [GitHub pages](https://pages.github.com/). [CloudFlare](https://www.cloudflare.com/) provides DNS and [Heroku](https://www.heroku.com/) hosts GistRun's integration with GitHub's OAuth [web application flow](https://developer.github.com/v3/oauth/#web-application-flow).
 *Many thanks to the providers of these free libraries and services!*
 
 ## Why GistRun?
