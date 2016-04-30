@@ -1,10 +1,10 @@
 <template>
   <require from="./ga"></require>
+  <require from="./new-gist-menu"></require>
 
   <img class="header-logo" src="img/logo.png">
 
-  <form class="header-load-gist" submit.delegate="import({ urlOrId: urlOrIdInput.value})"
-        ga ga-category="header" ga-action="import">
+  <form class="header-load-gist" submit.delegate="import({ urlOrId: urlOrIdInput.value})" ga ga-category="header" ga-action="import">
     <div class="input-group">
       <input class="form-control input-sm" type="text" placeholder="Gist/Plunker/jsFiddle URL..." ref="urlOrIdInput">
       <span class="input-group-button">
@@ -15,27 +15,13 @@
     </div>
   </form>
 
-  <a class="tooltipped tooltipped-sw right"
-     href="https://gist.github.com/${user.login}" target="_blank"
-     show.bind="user.authenticated"
-     aria-label="Signed in as ${user.login}"
-     ga ga-category="header" ga-action="avatar">
-    <img class="avatar avatar-small"
-         src.bind="user.avatar_url"
-         width="26" height="26">
+  <a class="tooltipped tooltipped-sw right" href="https://gist.github.com/${user.login}" target="_blank" show.bind="user.authenticated" aria-label="Signed in as ${user.login}" ga ga-category="header" ga-action="avatar">
+    <img class="avatar avatar-small" src.bind="user.avatar_url" width="26" height="26">
   </a>
 
-  <button class="btn btn-sm right" type="button"
-          show.bind="!user.authenticated"
-          disabled.bind="user.loading"
-          click.delegate="user.signIn()"
-          ga ga-category="header" ga-action="sign-in">
+  <button class="btn btn-sm right" type="button" show.bind="!user.authenticated" disabled.bind="user.loading" click.delegate="user.signIn()" ga ga-category="header" ga-action="sign-in">
     Sign In
   </button>
 
-  <button class="btn btn-sm right" type="button"
-          click.delegate="new()"
-          ga ga-category="nav-panel" ga-action="new">
-    New Gist
-  </button>
+  <new-gist-menu class="right"></new-gist-menu>
 </template>

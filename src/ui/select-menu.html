@@ -1,0 +1,21 @@
+<template bindable="name, active">
+  <div class="modal-backdrop"
+       if.bind="active"
+       click.delegate="active = false">
+  </div>
+  <div class="select-menu ${active ? 'active' : ''} select-menu-modal-right">
+    <button class="btn btn-sm select-menu-button" role="button" aria-haspopup="true"
+            click.delegate="active = true">
+      ${name}
+    </button>
+    <div class="select-menu-modal-holder">
+      <div class="select-menu-modal">
+        <div class="select-menu-header">
+          <span aria-label="Close" class="octicon octicon-x" click.delegate="active = false"></span>
+          <span class="select-menu-title">${name}</span>
+        </div>
+        <content></content>
+      </div>
+    </div>
+  </div>
+</template>

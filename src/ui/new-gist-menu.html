@@ -1,0 +1,25 @@
+<template>
+  <require from="./select-menu.html"></require>
+
+  <select-menu name="New Gist" view-model.ref="menu">
+    <div class="select-menu-list" role="menu" tabindex="-1">
+      <div class="select-menu-item" role="menuitem" tabindex="0"
+           repeat.for="template of templates"
+           click.delegate="menu.active = false">
+        <div class="select-menu-item-text">
+          <span class="select-menu-item-heading">${template.name}</span>
+          <span class="description">${template.description}</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-sm btn-outline right m-2" type="button"
+            click.delegate="edit()">
+      Edit
+    </button>
+  </select-menu>
+
+  <!-- <button class="btn btn-sm right" type="button" click.delegate="new()" ga ga-category="nav-panel" ga-action="new">
+    New Gist
+  </button> -->
+</template>
