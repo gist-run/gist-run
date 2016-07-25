@@ -20,6 +20,19 @@ export function param(obj) {
   return parts.join('&');
 }
 
+export function parseLinkHeader(link) {
+  const map = {};
+  link.substring(1)
+    .split(/,\s*</)
+    .forEach(part => {
+      let [url, rel] = part.split(/>;\s*/);
+      url = new URL(url);
+      rel = /^rel="(.*)"$/.exec(rel)[1];
+      map[rel] = url;
+    });
+  return map;
+}
+
 export function stringComparisonOrdinalIgnoreCase(a, b) {
   a = a.toLowerCase();
   b = b.toLowerCase();
