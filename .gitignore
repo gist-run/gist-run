@@ -1,11 +1,3 @@
+.DS_Store
 node_modules
-jspm_packages
-bower_components
-/export
-.idea
-.DS_STORE
-/dist
-build/reports
-coverage
-test/e2e/dist
-/.publish
+dist

@@ -1,1 +1,0 @@
-define('bundle-manifest',[], function() {});

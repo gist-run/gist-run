@@ -1,0 +1,10 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "editor.formatOnSave": true,
+  "html.format.enable": false,
+  "json.format.enable": false,
+
+  "html.suggest.angular1": false,
+  "html.suggest.ionic": false
+}
