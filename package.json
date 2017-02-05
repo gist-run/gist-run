@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/gist-run/gist-run#readme",
   "devDependencies": {
+    "@types/requirejs": "^2.1.28",
     "@types/service_worker_api": "^0.0.8",
-    "@types/systemjs": "^0.19.33",
     "browser-sync": "^2.18.7",
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.1.0",
@@ -43,8 +43,10 @@
   },
   "dependencies": {
     "aurelia-bootstrapper": "^2.0.1",
+    "monaco-editor": "^0.8.1",
     "octicons": "^5.0.1",
     "primer-css": "^4.7.0",
-    "systemjs": "^0.20.5"
+    "requirejs": "^2.3.2",
+    "text": "requirejs/text"
   }
 }

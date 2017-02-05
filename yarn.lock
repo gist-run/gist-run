@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
+"@types/requirejs@^2.1.28":
+  version "2.1.28"
+  resolved "https://registry.yarnpkg.com/@types/requirejs/-/requirejs-2.1.28.tgz#bfb2c1d5a03a22ab137ff020abae9338b66efdad"
+
 "@types/service_worker_api@^0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/service_worker_api/-/service_worker_api-0.0.8.tgz#6754e5d1020a4766343f974eaf3abd47b699aaa0"
   dependencies:
     "@types/whatwg-fetch" "*"
-
-"@types/systemjs@^0.19.33":
-  version "0.19.33"
-  resolved "https://registry.yarnpkg.com/@types/systemjs/-/systemjs-0.19.33.tgz#47c47e7639867b6694beb3f60c4f53ad55eb1b13"
 
 "@types/whatwg-fetch@*":
   version "0.0.33"
@@ -1569,6 +1569,10 @@ moment@^2.11.2:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
+monaco-editor@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.8.1.tgz#132d5607294a56f4d2b195c3451c7cf4ccaece79"
+
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -2213,6 +2217,10 @@ require-main-filename@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
 
+requirejs@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/requirejs/-/requirejs-2.3.2.tgz#0eaa870d4c7db3b15dd1322e6b65b0388fc4b2c6"
+
 requires-port@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
@@ -2464,10 +2472,6 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-systemjs@^0.20.5:
-  version "0.20.5"
-  resolved "https://registry.yarnpkg.com/systemjs/-/systemjs-0.20.5.tgz#42dca26b521019faaf7c3e30be4e5ca1708841b2"
-
 tar-pack@~3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/tar-pack/-/tar-pack-3.3.0.tgz#30931816418f55afc4d21775afdd6720cee45dae"
@@ -2488,6 +2492,10 @@ tar@~2.2.1:
     block-stream "*"
     fstream "^1.0.2"
     inherits "2"
+
+text@requirejs/text:
+  version "2.0.15"
+  resolved "https://codeload.github.com/requirejs/text/tar.gz/d04de4ffd7bf5ba6cb80cdca2d40d4f6f52a1b1f"
 
 tfunk@^3.0.1:
   version "3.1.0"

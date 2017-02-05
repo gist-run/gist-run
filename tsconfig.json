@@ -7,7 +7,7 @@
       "dom",
       "es2017"
     ],
-    "module": "system",
+    "module": "amd",
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "noImplicitAny": true,

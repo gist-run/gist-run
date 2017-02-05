@@ -3,19 +3,20 @@
   <head>
     <title>GistRun</title>
     <meta name="description" content="Bring your Gists to life with GistRun! Create or update GitHub Gists, share on StackOverflow and more.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:site_name" content="GistRun">
     <meta property="og:title" content="Bring your Gists to life with GistRun">
     <meta property="og:description" content="GistRun is a site for running, creating and updating GitHub Gists. With GistRun you can easily share Gists on StackOverflow.">
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://gist.run" />
-    <meta property="og:image" content="https://gist.run/img/logo-big.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="533" />
-    <meta property="og:image:height" content="533" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@GistRun_" />
-    <meta name="twitter:creator" content="@dany0w" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gist.run">
+    <meta property="og:image" content="https://gist.run/img/logo-big.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="533">
+    <meta property="og:image:height" content="533">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@GistRun_">
+    <meta name="twitter:creator" content="@dany0w">
     <link rel="canonical" href="https://gist.run">
     <script>
       if (location.host === 'gist.run' && location.protocol !== 'https:') {
@@ -31,8 +32,11 @@
 
   <body aurelia-app="main">
     Loading...
-    <script src="../../node_modules/systemjs/dist/system.js"></script>
+    <script src="../../node_modules/requirejs/require.js"></script>
     <script src="config.js"></script>
+    <script>
+      require(['aurelia-bootstrapper']);
+    </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
