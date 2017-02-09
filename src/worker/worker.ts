@@ -16,14 +16,8 @@ declare const caches: CacheStorage;
   event.waitUntil(self.clients.claim());
 });
 
-interface GistFile {
-  name: string;
-  type: string;
-  content: string;
-}
-
 function createResponse(file: GistFile) {
-  let responseInit = {
+  const responseInit = {
     status: 200,
     statusText: 'OK',
     headers: {
@@ -38,13 +32,13 @@ function createUrl(clientID: number, name: string) {
 }
 
 function createRequest(clientID: number, file: GistFile) {
-  let url = createUrl(clientID, file.name);
+  const url = createUrl(clientID, file.name);
   return new Request(url, { mode: 'no-cors' });
 }
 
 function putFile(cache: Cache, clientID: number, file: GistFile) {
-  let response = createResponse(file);
-  let request = createRequest(clientID, file);
+  const response = createResponse(file);
+  const request = createRequest(clientID, file);
   return cache.put(request, response);
 }
 
@@ -54,7 +48,7 @@ function updateFile(clientID: number, file: GistFile) {
 }
 
 function deleteFile(clientID: number, file: GistFile) {
-  let request = createRequest(clientID, file);
+  const request = createRequest(clientID, file);
   return caches.open(clientID.toString())
     .then(cache => cache.delete(request));
 }
@@ -69,23 +63,21 @@ function handleMessage(event: MessageEvent) {
   if (!event.data.action || event.ports.length !== 1) {
     return;
   }
-  const data = event.data;
+  const message: GistFileMessage = event.data;
   const responsePort: MessagePort = event.ports[0];
-  const clientID: number = data.clientID;
-  const action: string = data.action;
   let handler: Promise<any>;
-  switch (action) {
+  switch (message.action) {
     case 'updateFile':
-      handler = updateFile(clientID, data.file);
+      handler = updateFile(message.clientID, message.file);
       break;
     case 'deleteFile':
-      handler = deleteFile(clientID, data.file);
+      handler = deleteFile(message.clientID, message.file);
       break;
     case 'resetFiles':
-      handler = resetFiles(clientID, data.files);
+      handler = resetFiles(message.clientID, message.files);
       break;
     default:
-      throw new Error(`Unknown action: ${action}`);
+      throw new Error('Unknown message action.');
   }
   handler.then(() => responsePort.postMessage('ok'));
 }
@@ -97,7 +89,9 @@ function handleFetch(event: FetchEvent) {
   if (!/\/run\//.test(request.url)) {
     return;
   }
-  const options = {}; // chrome does not support these yet: { ignoreSearch: true, ignoreMethod: true, ignoreVary: true };
+
+  // chrome does not support these yet: { ignoreSearch: true, ignoreMethod: true, ignoreVary: true };
+  const options = {};
   event.respondWith(caches.match(request, options)
     .then(response => response ? response : fetch(request)));
 }

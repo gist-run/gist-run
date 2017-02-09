@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project tsconfig.json",
     "copy-html-css": "copyfiles --up 1 src/**/*.{html,css} dist",
     "prebuild": "rm -rf dist",
     "build": "tsc",
