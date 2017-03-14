@@ -12,7 +12,7 @@
     ```
 4. From the project folder, execute the following command to build the project:
     ```shell
-    yarn run watch
+    yarn watch
     ```
 
 5. Browse to [https://localhost:9000](https://localhost:9000)

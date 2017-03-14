@@ -1,0 +1,18 @@
+@import "primer-core/index.scss";
+@import "primer-support/index.scss";
+@import "primer-alerts/index.scss";
+@import "primer-avatars/index.scss";
+@import "primer-blankslate/index.scss";
+// @import "primer-markdown/index.scss";
+// @import "primer-states/index.scss";
+
+body {
+  display: flex;
+  position: fixed;
+  left: 15px;
+  top: 0;
+  right: 15px;
+  bottom: 15px;
+}
+
+@import "./split-panel.scss";

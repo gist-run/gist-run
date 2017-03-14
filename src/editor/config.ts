@@ -19,6 +19,7 @@ require.config({
     'aurelia-templating-binding': 'node_modules/aurelia-templating-binding/dist/amd/aurelia-templating-binding',
     'aurelia-templating-resources': 'node_modules/aurelia-templating-resources/dist/amd',
     'text': 'node_modules/text/text',
+    'tslib': 'node_modules/tslib/tslib',
     'vs': 'node_modules/monaco-editor/dev/vs',
   },
   packages: [

@@ -1,0 +1,17 @@
+<template>
+  <div class="split-panel_panel" ref="leftPanel">
+    <slot name="left"></slot>
+  </div>
+
+  <div class="split-panel_splitter" ref="leftSplitter">&nbsp;</div>
+
+  <div class="split-panel_panel" ref="centerPanel">
+    <slot name="center"></slot>
+  </div>
+
+  <div class="split-panel_splitter" ref="rightSplitter">&nbsp;</div>
+
+  <div class="split-panel_panel" ref="rightPanel">
+    <slot name="right"></slot>
+  </div>
+</template>
