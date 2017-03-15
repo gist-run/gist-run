@@ -14,7 +14,7 @@
     "serve-worker": "browser-sync start --server ./ --server dist/worker --files dist/worker --port 3000 --no-open --no-ui --no-online",
     "watch-html": "chokidar 'src/**/*.html' --command 'yarn run html'",
     "prewatch": "yarn run build",
-    "watch": "concurrently \"tsc --watch\" \"yarn run sass -- --watch\" \"yarn run serve-editor\" \"yarn run serve-worker\" \"yarn run watch-html\""
+    "watch": "concurrently \"tsc --watch\" \"yarn run sass -- --watch --recursive\" \"yarn run serve-editor\" \"yarn run serve-worker\" \"yarn run watch-html\""
   },
   "repository": {
     "type": "git",

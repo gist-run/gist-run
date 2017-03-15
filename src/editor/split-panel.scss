@@ -1,20 +1,22 @@
-split-panel {
+.split-panel {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.split-panel_panel {
+.split-panel__panel,
+.split-panel__splitter {
   float: left;
+  height: 100%;
+}
+
+.split-panel__panel {
   border: $border;
   border-radius: $border-radius;
-  height: 100%;
   overflow: hidden;
 }
 
-.split-panel_splitter {
-  float: left;
-  height: 100%;
+.split-panel__splitter {
   cursor: col-resize;
   user-select: none;
 }
