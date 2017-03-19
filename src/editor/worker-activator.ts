@@ -1,4 +1,4 @@
-import { workerOrigin, workerPage } from './constants';
+import { workerOrigin, workerPage } from './config';
 
 const iframe = document.createElement('iframe');
 iframe.setAttribute('src', workerPage);

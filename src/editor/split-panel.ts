@@ -101,24 +101,20 @@ export class SplitPanel {
     addEventListener('resize', this.resize);
   }
 
-  private resizeFrame = 0;
   private resize = () => {
-    cancelAnimationFrame(this.resizeFrame);
-    this.resizeFrame = requestAnimationFrame(() => {
-      let { left, center, right } = this.dims;
-      const current = this.element.getBoundingClientRect().width - 2 * splitterWidth;
-      right = current - left - center;
-      if (right < 10) {
-        right = Math.floor((current - left) / 2);
-        center = current - left - right;
-      }
-      if (left < 10 || center < 10 || right < 10) {
-        left = right = Math.floor(current / 3);
-        center = current - left - right;
-      }
-      this.dims = { left, center, right };
-      this.updateDom();
-    });
+    let { left, center, right } = this.dims;
+    const current = this.element.getBoundingClientRect().width - 2 * splitterWidth;
+    right = current - left - center;
+    if (right < 10) {
+      right = Math.floor((current - left) / 2);
+      center = current - left - right;
+    }
+    if (left < 10 || center < 10 || right < 10) {
+      left = right = Math.floor(current / 3);
+      center = current - left - right;
+    }
+    this.dims = { left, center, right };
+    this.updateDom();
   }
 }
 

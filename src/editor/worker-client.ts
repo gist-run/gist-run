@@ -1,5 +1,5 @@
 import { postMessageToWorker } from './worker-activator';
-import { workerPage } from './constants';
+import { workerPage } from './config';
 
 const clientID = +new Date();
 
