@@ -1,5 +1,5 @@
 import { GistImporter } from './importer';
-import { Gist } from '../github/gists';
+import { UnsavedGist } from '../github/gist';
 
 export class JSFiddleImporter implements GistImporter {
   public canImport(urlOrId: string) {
@@ -20,7 +20,7 @@ export class JSFiddleImporter implements GistImporter {
       .then(page => this.fiddleHtmlToGist(page));
   }
 
-  private fiddleHtmlToGist(page: string): Gist {
+  private fiddleHtmlToGist(page: string): UnsavedGist {
     const div = document.createElement('div');
     div.innerHTML = /<input id="id_title".*\/>/.exec(page)[0];
     const title = (div.firstElementChild as HTMLInputElement).value;
@@ -34,6 +34,7 @@ export class JSFiddleImporter implements GistImporter {
     // todo: external resources and frameworks...
 
     return {
+      id: undefined,
       description: (title + ' - ' + description).replace(/(^ - )|( - )$/, ''),
       files: {
         'index.html': {

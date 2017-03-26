@@ -1,18 +1,48 @@
-import 'monaco-editor';
+import { autoinject } from 'aurelia-framework';
+import { QueryString } from './query-string';
+import { EditorResolver } from './editor-resolver';
+import { EditSession } from './edit-session';
+import { defaultGist } from './github/default-gist';
+import { Gist } from './github/gist';
+import { Importer } from './import/importer';
 
+@autoinject
 export class App {
-  public container: HTMLDivElement;
+  private editSession: EditSession;
+  private editor: monaco.editor.IStandaloneCodeEditor;
 
-  public attached() {
-    const editor = monaco.editor.create(this.container, { model: null });
-    monaco.editor.createModel(
-      `export const foo = 'bar';`, undefined, monaco.Uri.file('constants.ts'));
-    const something = monaco.editor.createModel(
-      `import {foo} from './constants';\nconsole.log(foo);`, undefined, monaco.Uri.file('something.ts'));
+  constructor(
+    private readonly queryString: QueryString,
+    private readonly editorResolver: EditorResolver,
+    private readonly importer: Importer) {
+  }
 
-    editor.setModel(something);
+  public async attached() {
+    const [gist, editor] = await Promise.all([
+      this.queryString.read(),
+      this.editorResolver.value
+    ]);
+    this.editor = editor;
+    this.setEditSession(gist);
+  }
 
-    //    editor.saveViewState()
-    window.addEventListener('resize', () => editor.layout());
+  public newGist() {
+    this.setEditSession(defaultGist);
+  }
+
+  public async import(urlOrId: string) {
+    try {
+      const gist = await this.importer.import(urlOrId);
+      this.setEditSession(gist);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private setEditSession(gist: Gist) {
+    if (this.editSession) {
+      this.editSession.dispose();
+    }
+    this.editSession = new EditSession(this.editor, gist);
   }
 }

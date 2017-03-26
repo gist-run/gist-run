@@ -1,8 +1,9 @@
 <template>
   <require from="./split-panel"></require>
+  <require from="./editor-pane"></require>
   <split-panel>
     <div slot="left">left</div>
-    <div slot="center" ref="container" style="width: 100%;height: 100%"></div>
+    <editor-pane slot="center"></editor-pane>
     <div slot="right">right</div>
   </split-panel>
 </template>

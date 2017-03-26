@@ -1,11 +1,12 @@
 import { autoinject } from 'aurelia-framework';
 import { ApiClient } from './api-client';
+import { SavedGist } from './gist';
 
 @autoinject
 export class Gists {
   constructor(private api: ApiClient) { }
 
-  public load(id: string, sha?: string): Promise<Gist> {
+  public load(id: string, sha?: string): Promise<SavedGist> {
     let url;
     if (sha) {
       url = `gists/${id}/${sha}`;
@@ -13,7 +14,7 @@ export class Gists {
       url = `gists/${id}`;
     }
     return this.api.fetch(url)
-      .then<Gist>(response => {
+      .then<SavedGist>(response => {
         if (response.ok) {
           // todo: handle truncated files
           return response.json();
@@ -25,7 +26,7 @@ export class Gists {
       });
   }
 
-  public update(id: string, gist: Gist) {
+  public update(id: string, gist: SavedGist) {
     const init = {
       method: 'PATCH',
       headers: {
@@ -43,7 +44,7 @@ export class Gists {
       });
   }
 
-  public create(gist: Gist) {
+  public create(gist: SavedGist) {
     const init = {
       method: 'POST',
       headers: {
@@ -72,14 +73,4 @@ export class Gists {
       })
       .then(fork => this.load(fork.id));
   }
-}
-
-export interface Gist {
-  description: string;
-  files: {
-    [filename: string]: {
-      type?: string;
-      content: string;
-    };
-  };
 }

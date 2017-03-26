@@ -2,7 +2,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
 
   "editor.formatOnSave": true,
-  "html.format.enable": false,
+  "html.format.enable": true,
   "json.format.enable": false,
 
   "html.suggest.angular1": false,

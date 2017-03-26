@@ -1,4 +1,7 @@
-export const defaultGist = {
+import { UnsavedGist } from './gist';
+
+export const defaultGist: UnsavedGist = {
+  id: undefined,
   description: '',
   files: {
     'index.html': {
@@ -11,7 +14,7 @@ export const defaultGist = {
       content: 'console.log(\'Hello World!\');'
     },
     'styles.css': {
-      contentType: 'text/css',
+      type: 'text/css',
       content: '/* todo: add styles */'
     }
   }

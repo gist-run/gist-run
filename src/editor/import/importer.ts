@@ -1,4 +1,4 @@
-import { Gist } from '../github/gists';
+import { Gist } from '../github/gist';
 import { GithubImporter } from './github-importer';
 import { JSFiddleImporter } from './jsfiddle-importer';
 import { PlunkerImporter } from './plunker-importer';
