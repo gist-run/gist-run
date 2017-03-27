@@ -34,16 +34,16 @@ export class QueryString {
   }
 
   public write(gist: Gist, withSha: boolean) {
-    if (gist.id === undefined) {
+    if (!('id' in gist)) {
       this.clear();
       return;
     }
     const saved = gist as SavedGist;
     let query;
     if (withSha) {
-      query = param({ id: gist.id, sha: saved.history[0].version });
+      query = param({ id: saved.id, sha: saved.history[0].version });
     } else {
-      query = param({ id: gist.id });
+      query = param({ id: saved.id });
     }
     this.history.pushState(null, this.document.title, '?' + query);
   }

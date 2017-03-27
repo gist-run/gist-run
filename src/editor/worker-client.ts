@@ -20,8 +20,8 @@ export class WorkerClient {
     });
   }
 
-  public updateFile(file: GistFile) {
-    return this.sendMessage({ clientID, action: 'updateFile', file });
+  public writeFile(file: GistFile) {
+    return this.sendMessage({ clientID, action: 'writeFile', file });
   }
 
   public deleteFile(file: GistFile) {

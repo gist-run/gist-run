@@ -1,0 +1,22 @@
+.edit-file-panel {
+  display: block;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+}
+
+.edit-file-panel__header {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 5px 10px;
+  background-color: $gray-100;
+  border-bottom: 1px solid $gray-300;
+}
+
+.edit-file-panel > .code-editor {
+  width: 100%;
+  height: calc(100% - 45px);
+}

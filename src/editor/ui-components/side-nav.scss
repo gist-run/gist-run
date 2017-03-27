@@ -1,6 +1,11 @@
 .side-nav {
+  white-space: nowrap;
   display: block;
   width: 100%;
   height: 100%;
   overflow-y: auto;
+}
+
+.menu-item--transient {
+  font-style: italic;
 }

@@ -1,6 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { ApiClient } from './api-client';
-import { SavedGist } from './gist';
+import { SavedGist, UnsavedGist } from './gist';
 
 @autoinject
 export class Gists {
@@ -44,7 +44,7 @@ export class Gists {
       });
   }
 
-  public create(gist: SavedGist) {
+  public create(gist: UnsavedGist) {
     const init = {
       method: 'POST',
       headers: {

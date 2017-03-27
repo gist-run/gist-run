@@ -2,7 +2,7 @@ import { autoinject } from 'aurelia-framework';
 import { EditorResolver } from '../editor-resolver';
 
 @autoinject
-export class EditorPane {
+export class CodeEditor {
   public editorContainer: HTMLDivElement;
 
   private editor: monaco.editor.IStandaloneCodeEditor | null = null;

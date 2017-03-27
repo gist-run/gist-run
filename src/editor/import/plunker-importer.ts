@@ -21,7 +21,7 @@ export class PlunkerImporter implements GistImporter {
         return Promise.reject('Error loading plunk.');
       })
       .then(plunk => {
-        const gist: UnsavedGist = { id: undefined, description: plunk.description, files: {} };
+        const gist: UnsavedGist = { description: plunk.description, files: {} };
         for (const name in plunk.files) {
           if (plunk.files.hasOwnProperty(name)) {
             gist.files[name] = { content: plunk.files[name].content };

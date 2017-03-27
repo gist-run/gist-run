@@ -1,13 +1,20 @@
-import { getExtension } from './util';
-import { Gist } from './github/gist';
+import { SavedGist } from './github/gist';
 
-function formatFile(filename: string, content: string) {
-  const extension = getExtension(filename);
-  content = content.trim().replace(/^/mg, '    ');
-  return `*${filename}*\n\n<!-- language: lang-${extension} -->\n\n${content}`;
+function getLanguageTag(filename: string) {
+  const parts = filename.split('.');
+  if (parts.length === 1) {
+    return '';
+  }
+  return `<!--language: lang-${parts[parts.length - 1]} -->\n\n`;
 }
 
-export function getStackOverflowMarkdown(gist: Gist) {
+function formatFile(filename: string, content: string) {
+  const languageTag = getLanguageTag(filename);
+  content = content.trim().replace(/^/mg, '    ');
+  return `*${filename}*\n\n${languageTag}\n\n${content}`;
+}
+
+export function getStackOverflowMarkdown(gist: SavedGist) {
   return `[**Run code snippet**](https://gist.run?id=${gist.id})\n\n`
     + Object.entries(gist.files)
       .map(([filename, { content }]) => formatFile(filename, content))

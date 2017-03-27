@@ -1,11 +1,15 @@
 <template>
   <require from="./split-panel"></require>
   <require from="./side-nav"></require>
-  <require from="./editor-pane"></require>
+  <require from="./edit-file-panel.html"></require>
 
   <split-panel>
-    <side-nav slot="left" edit-session.bind="editSession"></side-nav>
-    <editor-pane slot="center"></editor-pane>
+    <side-nav slot="left"
+              edit-session.bind="editSession">
+    </side-nav>
+    <edit-file-panel slot="center"
+                     edit-session.bind="editSession">
+    </edit-file-panel>
     <div slot="right">right</div>
   </split-panel>
 </template>

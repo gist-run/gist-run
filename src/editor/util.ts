@@ -21,29 +21,6 @@ export function param(obj: { [name: string]: string; }) {
   return parts.join('&');
 }
 
-const contentTypeMap: { [extension: string]: string } = {
-  css: 'text/css',
-  js: 'application/javascript',
-  json: 'application/json',
-  html: 'text/html',
-  svg: 'image/svg+xml'
-};
-
-export function getExtension(name: string) {
-  const parts = name.split('.');
-  if (parts.length === 1) {
-    return '';
-  }
-  return parts[parts.length - 1];
-}
-
-export function getContentType(name: string) {
-  const extension = getExtension(name);
-  if (extension === '') {
-    return 'text/plain';
-  }
-  return contentTypeMap[extension] || 'text/plain';
-}
 
 // http://stackoverflow.com/a/30810322/725866
 export function copyTextToClipboard(text: string) {

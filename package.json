@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --project tsconfig.json",
-    "sprite": "svg-sprite --config svg-sprite.json \"node_modules/octicons/build/svg*/{code,gist,git-commit,info,repo-forked}.svg\"",
+    "sprite": "svg-sprite --config svg-sprite.json \"node_modules/octicons/build/svg*/{code,gist,git-commit,info,repo-forked,trashcan}.svg\"",
     "preimg": "yarn run sprite",
     "img": "copyfiles --up 1 \"src/**/*.{ico,png,svg}\" dist",
     "html": "copyfiles --up 1 \"src/**/*.html\" dist",

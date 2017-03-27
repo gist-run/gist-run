@@ -24,3 +24,10 @@
 ## Publishing
 
 *todo*
+
+## SVG Sprites
+
+https://github.com/jkphl/svg-sprite/blob/master/docs/command-line.md
+http://jkphl.github.io/svg-sprite/#json
+http://caniuse.com/#feat=svg-fragment
+https://css-tricks.com/svg-sprites-use-better-icon-fonts/

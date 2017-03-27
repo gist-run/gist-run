@@ -15,6 +15,11 @@ body {
   bottom: 15px;
 }
 
-@import "./ui-components/editor-pane.scss";
+.octicon-red {
+  fill: $red;
+}
+
+@import "./ui-components/code-editor.scss";
+@import "./ui-components/edit-file-panel.scss";
 @import "./ui-components/side-nav.scss";
 @import "./ui-components/split-panel.scss";

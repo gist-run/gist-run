@@ -1,11 +1,9 @@
 export type Gist = UnsavedGist | SavedGist;
 
 export interface UnsavedGist {
-  id: undefined;
   description: string;
   files: {
     [filename: string]: {
-      type?: string;
       content: string;
     };
   };

@@ -1,12 +1,11 @@
 interface GistFile {
   name: string;
-  type: string;
   content: string;
 }
 
-interface UpdateGistFileMessage {
+interface WriteGistFileMessage {
   clientID: number;
-  action: 'updateFile';
+  action: 'writeFile';
   file: GistFile;
 }
 
@@ -22,5 +21,5 @@ interface ResetGistFilesMessage {
   files: GistFile[];
 }
 
-type GistFileMessage = UpdateGistFileMessage | DeleteGistFileMessage | ResetGistFilesMessage;
+type GistFileMessage = WriteGistFileMessage | DeleteGistFileMessage | ResetGistFilesMessage;
 

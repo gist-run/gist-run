@@ -34,20 +34,16 @@ export class JSFiddleImporter implements GistImporter {
     // todo: external resources and frameworks...
 
     return {
-      id: undefined,
       description: (title + ' - ' + description).replace(/(^ - )|( - )$/, ''),
       files: {
         'index.html': {
-          type: 'text/html',
           // tslint:disable-next-line:max-line-length
           content: `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <title>GistRun</title>\n  <link rel="stylesheet" href="styles.css">\n</head>\n<body>\n${html}\n  <script src="script.js"></script>\n</body>\n</html>`
         },
         'script.js': {
-          type: 'application/javascript',
           content: js
         },
         'styles.css': {
-          type: 'text/css',
           content: css
         }
       }

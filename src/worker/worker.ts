@@ -21,7 +21,7 @@ function createResponse(file: GistFile) {
     status: 200,
     statusText: 'OK',
     headers: {
-      'Content-Type': file.type
+      'Content-Type': getContentType(file.name)
     }
   };
   return new Response(file.content, responseInit);
@@ -42,7 +42,7 @@ function putFile(cache: Cache, clientID: number, file: GistFile) {
   return cache.put(request, response);
 }
 
-function updateFile(clientID: number, file: GistFile) {
+function writeFile(clientID: number, file: GistFile) {
   return caches.open(clientID.toString())
     .then(cache => putFile(cache, clientID, file));
 }
@@ -67,8 +67,8 @@ function handleMessage(event: MessageEvent) {
   const responsePort: MessagePort = event.ports[0];
   let handler: Promise<any>;
   switch (message.action) {
-    case 'updateFile':
-      handler = updateFile(message.clientID, message.file);
+    case 'writeFile':
+      handler = writeFile(message.clientID, message.file);
       break;
     case 'deleteFile':
       handler = deleteFile(message.clientID, message.file);
@@ -97,3 +97,27 @@ function handleFetch(event: FetchEvent) {
 }
 
 (self as ServiceWorkerGlobalScope).addEventListener('fetch', handleFetch);
+
+const contentTypeMap: { [extension: string]: string } = {
+  css: 'text/css',
+  js: 'application/javascript',
+  json: 'application/json',
+  html: 'text/html',
+  svg: 'image/svg+xml'
+};
+
+function getExtension(name: string) {
+  const parts = name.split('.');
+  if (parts.length === 1) {
+    return '';
+  }
+  return parts[parts.length - 1];
+}
+
+function getContentType(name: string) {
+  const extension = getExtension(name);
+  if (extension === '') {
+    return 'text/plain';
+  }
+  return contentTypeMap[extension] || 'text/plain';
+}
