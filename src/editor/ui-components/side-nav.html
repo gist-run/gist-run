@@ -12,16 +12,24 @@
   <nav class="menu">
     <a class="menu-item" href="${editSession.gist.html_url}" target="_blank" show.bind="editSession.gist.html_url" ga ga-category="nav-panel"
       ga-action="gist">
-      <span class="octicon octicon-gist"></span> Gist
+      <svg class="octicon" width="16" height="16">
+        <use xlink:href="img/octicons.svg#octicon-gist"></use>
+      </svg>
+      Gist
     </a>
     <a class="menu-item" href="${editSession.gist.html_url}/revisions" target="_blank" show.bind="editSession.gist.html_url"
       ga ga-category="nav-panel" ga-action="revisions">
       <span class="octicon octicon-git-commit"></span>
+      <svg class="octicon" width="16" height="16" style="margin-left: -5px">
+        <use xlink:href="img/octicons.svg#octicon-git-commit"></use>
+      </svg>
       <span class="counter">${editSession.gist.history.length || 0}</span> Revisions
     </a>
     <a class="menu-item" href="${editSession.gist.html_url}/forks" target="_blank" show.bind="editSession.gist.html_url" ga ga-category="nav-panel"
       ga-action="forks">
-      <span class="octicon octicon-repo-forked"></span>
+      <svg class="octicon" width="16" height="16">
+        <use xlink:href="img/octicons.svg#octicon-repo-forked"></use>
+      </svg>
       <span class="counter">${editSession.gist.forks.length || 0}</span> Forks
     </a>
     <a class="menu-item" href="#" click.delegate="copyForStackOverflow()" show.bind="editSession.gist.html_url" ga ga-category="nav-panel"
@@ -30,15 +38,23 @@
     </a>
     <a class="menu-item" href="embed.html?id=${editSession.gist.id}" target="_blank" show.bind="editSession.gist.html_url" ga
       ga-category="nav-panel" ga-action="embed">
-      <span class="octicon octicon-code"></span> Embed
+      <svg class="octicon" width="16" height="16">
+        <use xlink:href="img/octicons.svg#octicon-code"></use>
+      </svg>
+      Embed
     </a>
     <!-- <a class="menu-item" href.bind="runUrl" target="_blank">
-      <span class="octicon octicon-link-external"></span>
+      <svg class="octicon" width="16" height="16">
+        <use xlink:href="img/octicons.svg#octicon-link-external"></use>
+      </svg>
       Run Outside
     </a> -->
     <a class="menu-item" href="https://github.com/gist-run/gist-run/blob/master/README.md" target="_blank" ga ga-category="nav-panel"
       ga-action="about">
-      <span class="octicon octicon-info"></span> About
+      <svg class="octicon" width="16" height="16">
+        <use xlink:href="img/octicons.svg#octicon-info"></use>
+      </svg>
+      About
     </a>
   </nav>
 </template>

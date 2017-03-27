@@ -1,0 +1,15 @@
+{
+    "log": "info",
+    "shape": {
+        "id": {
+            "generator": "octicon-%s"
+        }
+    },
+    "mode": {
+        "symbol": {
+            "dest": "src/editor",
+            "prefix": ".octicon-%s",
+            "sprite": "img/octicons.svg"
+        }
+    }
+}

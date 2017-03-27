@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --project tsconfig.json",
-    "img": "copyfiles --up 1 \"src/**/*.{png,ico}\" dist",
+    "sprite": "svg-sprite --config svg-sprite.json \"node_modules/octicons/build/svg*/{code,gist,git-commit,info,repo-forked}.svg\"",
+    "preimg": "yarn run sprite",
+    "img": "copyfiles --up 1 \"src/**/*.{ico,png,svg}\" dist",
     "html": "copyfiles --up 1 \"src/**/*.html\" dist",
     "sass": "node-sass src/editor/index.scss dist/editor/index.css --include-path node_modules",
     "prebuild": "rm -rf dist",
@@ -40,6 +42,7 @@
     "concurrently": "^3.4.0",
     "copyfiles": "^1.2.0",
     "node-sass": "^4.5.0",
+    "svg-sprite": "^1.3.6",
     "tslint": "^4.5.1",
     "typescript": "rc"
   },
@@ -47,6 +50,7 @@
     "@types/service_worker_api": "^0.0.9",
     "aurelia-bootstrapper": "^2.1.1",
     "monaco-editor": "^0.8.3",
+    "octicons": "^5.0.1",
     "primer-css": "^5.0.0",
     "requirejs": "^2.3.3",
     "text": "requirejs/text",
