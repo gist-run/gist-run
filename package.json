@@ -37,6 +37,7 @@
   "homepage": "https://github.com/gist-run/gist-run#readme",
   "devDependencies": {
     "@types/requirejs": "^2.1.28",
+    "@types/service_worker_api": "^0.0.9",
     "browser-sync": "^2.18.8",
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.4.0",
@@ -47,7 +48,6 @@
     "typescript": "rc"
   },
   "dependencies": {
-    "@types/service_worker_api": "^0.0.9",
     "aurelia-bootstrapper": "^2.1.1",
     "monaco-editor": "^0.8.3",
     "octicons": "^5.0.1",
