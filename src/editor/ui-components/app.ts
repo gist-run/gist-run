@@ -1,10 +1,10 @@
 import { autoinject } from 'aurelia-framework';
-import { QueryString } from './query-string';
-import { EditorResolver } from './editor-resolver';
-import { EditSession } from './edit-session';
-import { defaultGist } from './github/default-gist';
-import { Gist } from './github/gist';
-import { Importer } from './import/importer';
+import { QueryString } from '../query-string';
+import { EditorResolver } from '../editor-resolver';
+import { EditSession } from '../edit-session';
+import { defaultGist } from '../github/default-gist';
+import { Gist } from '../github/gist';
+import { Importer } from '../import/importer';
 
 @autoinject
 export class App {

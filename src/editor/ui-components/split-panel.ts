@@ -49,6 +49,7 @@ export class SplitPanel {
       return e instanceof TouchEvent ? e.targetTouches.item(0).clientX : e.clientX;
     }
     document.body.style.cursor = 'col-resize';
+    this.element.classList.add('split-panel--resizing');
 
     const splitter: HTMLDivElement = downEvent.target as any;
     const isLeftSplitter = splitter === this.element.firstElementChild.nextElementSibling;
@@ -83,6 +84,7 @@ export class SplitPanel {
 
     const up = () => {
       document.body.style.cursor = '';
+      this.element.classList.remove('split-panel--resizing');
       document.body.removeEventListener(moveEvent, move);
       document.body.removeEventListener(upEvent, up);
     };

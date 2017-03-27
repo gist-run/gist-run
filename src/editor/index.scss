@@ -15,5 +15,6 @@ body {
   bottom: 15px;
 }
 
-@import "./split-panel.scss";
-@import "./editor-pane.scss";
+@import "./ui-components/editor-pane.scss";
+@import "./ui-components/side-nav.scss";
+@import "./ui-components/split-panel.scss";

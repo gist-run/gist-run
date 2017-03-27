@@ -21,23 +21,12 @@ export function param(obj: { [name: string]: string; }) {
   return parts.join('&');
 }
 
-export function stringComparisonOrdinalIgnoreCase(a: string, b: string) {
-  a = a.toLowerCase();
-  b = b.toLowerCase();
-  if (a > b) {
-    return 1;
-  }
-  if (a < b) {
-    return -1;
-  }
-  return 0;
-}
-
-const contentTypeMap: { [name: string]: string } = {
+const contentTypeMap: { [extension: string]: string } = {
   css: 'text/css',
   js: 'application/javascript',
   json: 'application/json',
-  html: 'text/html'
+  html: 'text/html',
+  svg: 'image/svg+xml'
 };
 
 export function getExtension(name: string) {

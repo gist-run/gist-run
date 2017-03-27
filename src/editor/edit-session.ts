@@ -1,76 +1,43 @@
 import { Gist } from './github/gist';
+import { EditorAdapter } from './editor-adapter';
 
 export class EditSession implements monaco.IDisposable {
-  private readonly models: { [filename: string]: monaco.editor.IModel; } = Object.create(null);
-  private readonly viewState: { [filename: string]: monaco.editor.IEditorViewState; } = Object.create(null);
-  private readonly fileDirty: { [filename: string]: boolean; } = Object.create(null);
-  private readonly disposables: monaco.IDisposable[] = [];
-  private delay = 300;
-  private timeoutHandle = 0;
-  private dirty = false;
-  private filename: string | null = null;
+  public gist: Gist;
+  public files: FileInfo[] = [];
+  public dirty = false;
 
-  constructor(
-    private readonly editor: monaco.editor.IStandaloneCodeEditor,
-    private readonly gist: Gist
-  ) {
-    // load model states and previously selected file
-    // load unsaved changes
-    // create editor models
-    // select a file
-    // populate the worker's cache
-    // run
+  private readonly editorAdapter: EditorAdapter;
 
-    // sync gist when
-    //   model changes
-    //
+  constructor(editor: monaco.editor.IStandaloneCodeEditor, gist: Gist) {
+    this.gist = gist;
+    this.editorAdapter = new EditorAdapter(editor, (filename, content) => this.contentChanged(filename, content));
     for (const [filename, { content }] of Object.entries(gist.files)) {
-      const model = monaco.editor.createModel(content, undefined, monaco.Uri.file(filename));
-      this.models[filename] = model;
-      this.fileDirty[filename] = false;
+      this.editorAdapter.add(filename, content);
+      this.files.push({ filename, dirty: false });
     }
-    this.disposables.push(editor.onDidChangeModelContent(() => this.modelContentChanged()));
-    this.setModel('index.html');
-  }
-
-  public setModel(filename: string) {
-    if (this.filename !== null) {
-      this.syncWithModel();
-      this.viewState[this.filename] = this.editor.saveViewState();
-    }
-    const model = this.models[filename];
-    this.editor.setModel(model);
-    this.filename = filename;
-    const viewState = this.viewState[filename];
-    if (viewState !== undefined) {
-      this.editor.restoreViewState(viewState);
-    }
-    this.editor.focus();
+    this.sortFiles();
+    this.editorAdapter.activate('index.html');
   }
 
   public dispose() {
-    for (const model of Object.values(this.models)) {
-      model.dispose();
-    }
-    for (const disposable of this.disposables) {
-      disposable.dispose();
-    }
+    this.editorAdapter.dispose();
   }
 
-  private modelContentChanged() {
-    this.fileDirty[this.filename] = true;
+  private sortFiles() {
+    this.files.sort((a, b) => a.filename.localeCompare(b.filename, undefined, { sensitivity: 'base' }));
+  }
+
+  private contentChanged(filename: string, content: string) {
+    if (this.gist.files[filename].content === content) {
+      return;
+    }
+    this.gist.files[filename].content = content;
     this.dirty = true;
-
-    clearTimeout(this.timeoutHandle);
-    this.timeoutHandle = setTimeout(() => this.syncWithModel(), this.delay);
+    this.files.find(f => f.filename === filename).dirty = true;
   }
+}
 
-  private syncWithModel() {
-    if (this.timeoutHandle !== 0) {
-      this.gist.files[this.filename].content = this.editor.getValue();
-    }
-
-    clearTimeout(this.timeoutHandle);
-    this.timeoutHandle = 0;
-  }
+export interface FileInfo {
+  filename: string;
+  dirty: boolean;
 }

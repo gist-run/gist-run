@@ -1,5 +1,5 @@
 import { autoinject } from 'aurelia-framework';
-import { EditorResolver } from './editor-resolver';
+import { EditorResolver } from '../editor-resolver';
 
 @autoinject
 export class EditorPane {

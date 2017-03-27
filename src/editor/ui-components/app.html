@@ -1,8 +1,10 @@
 <template>
   <require from="./split-panel"></require>
+  <require from="./side-nav"></require>
   <require from="./editor-pane"></require>
+
   <split-panel>
-    <div slot="left">left</div>
+    <side-nav slot="left" edit-session.bind="editSession"></side-nav>
     <editor-pane slot="center"></editor-pane>
     <div slot="right">right</div>
   </split-panel>

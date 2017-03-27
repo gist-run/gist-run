@@ -6,13 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --project tsconfig.json",
-    "html": "copyfiles --up 1 src/**/*.html dist",
+    "img": "copyfiles --up 1 \"src/**/*.{png,ico}\" dist",
+    "html": "copyfiles --up 1 \"src/**/*.html\" dist",
     "sass": "node-sass src/editor/index.scss dist/editor/index.css --include-path node_modules",
     "prebuild": "rm -rf dist",
-    "build": "tsc && yarn run sass && yarn run html",
+    "build": "tsc && yarn run sass && yarn run html && yarn run img",
     "serve-editor": "browser-sync start --server ./ --server dist/editor --files dist/editor --port 9000 --no-open --no-ui --no-online",
     "serve-worker": "browser-sync start --server ./ --server dist/worker --files dist/worker --port 3000 --no-open --no-ui --no-online",
-    "watch-html": "chokidar 'src/**/*.html' --command 'yarn run html'",
+    "watch-html": "chokidar \"src/**/*.html\" --command \"yarn run html\"",
     "predevelop": "yarn run build",
     "develop": "concurrently \"tsc --watch\" \"yarn run sass -- --watch --recursive\" \"yarn run serve-editor\" \"yarn run serve-worker\" \"yarn run watch-html\""
   },

@@ -12,10 +12,10 @@ export function configure(aurelia: Aurelia) {
 
   aurelia.start().then(() => {
     if ('serviceWorker' in navigator) {
-      const root = /\/embed/.test(location.href) ? 'embed/app' : 'app';
+      const root = /\/embed/.test(location.href) ? 'ui-components/embed-app' : 'ui-components/app';
       aurelia.setRoot(root).then(activate);
       return;
     }
-    aurelia.setRoot('fallback');
+    aurelia.setRoot('ui-components/fallback-app');
   });
 }

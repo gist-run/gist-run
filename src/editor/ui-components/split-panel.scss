@@ -11,12 +11,13 @@
 }
 
 .split-panel__panel {
-  border: $border;
-  border-radius: $border-radius;
   overflow: hidden;
 }
 
 .split-panel__splitter {
   cursor: col-resize;
+}
+
+.split-panel--resizing {
   user-select: none;
 }
