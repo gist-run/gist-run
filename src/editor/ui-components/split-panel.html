@@ -2,6 +2,7 @@
   <div class="split-panel__panel"
        ref="leftPanel">
     <slot name="left"></slot>
+    <div class="split-panel__overlay">&nbsp;</div>
   </div>
 
   <div class="split-panel__splitter"
@@ -10,6 +11,7 @@
   <div class="split-panel__panel"
        ref="centerPanel">
     <slot name="center"></slot>
+    <div class="split-panel__overlay">&nbsp;</div>
   </div>
 
   <div class="split-panel__splitter"
@@ -18,5 +20,6 @@
   <div class="split-panel__panel"
        ref="rightPanel">
     <slot name="right"></slot>
+    <div class="split-panel__overlay">&nbsp;</div>
   </div>
 </template>

@@ -50,6 +50,10 @@ export class SplitPanel {
     }
     document.body.style.cursor = 'col-resize';
     this.element.classList.add('split-panel--resizing');
+    const overlays = Array.from(this.element.querySelectorAll('.split-panel__overlay')) as HTMLDivElement[];
+    overlays[0].style.display = 'block';
+    overlays[1].style.display = 'block';
+    overlays[2].style.display = 'block';
 
     const splitter: HTMLDivElement = downEvent.target as any;
     const isLeftSplitter = splitter === this.element.firstElementChild.nextElementSibling;
@@ -84,9 +88,12 @@ export class SplitPanel {
 
     const up = () => {
       document.body.style.cursor = '';
-      this.element.classList.remove('split-panel--resizing');
       document.body.removeEventListener(moveEvent, move);
       document.body.removeEventListener(upEvent, up);
+      this.element.classList.remove('split-panel--resizing');
+      overlays[0].style.display = '';
+      overlays[1].style.display = '';
+      overlays[2].style.display = '';
     };
 
     document.body.addEventListener(moveEvent, move);

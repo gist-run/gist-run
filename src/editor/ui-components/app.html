@@ -10,6 +10,11 @@
     <edit-file-panel slot="center"
                      edit-session.bind="editSession">
     </edit-file-panel>
-    <div slot="right">right</div>
+    <div slot="right"
+         class="run-frame">
+      <iframe ref="runFrame"
+              frameborder="0">
+      </iframe>
+    </div>
   </split-panel>
 </template>

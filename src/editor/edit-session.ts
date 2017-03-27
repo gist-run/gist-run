@@ -12,7 +12,11 @@ export class EditSession implements monaco.IDisposable {
   private readonly worker: WorkerClient;
   private nextFile = 0;
 
-  constructor(editor: monaco.editor.IStandaloneCodeEditor, gist: Gist) {
+  constructor(
+    editor: monaco.editor.IStandaloneCodeEditor,
+    gist: Gist,
+    private readonly run: () => void
+  ) {
     this.gist = gist;
     this.editorAdapter = new EditorAdapter(editor, (name, content) => this.contentChanged(name, content));
     this.worker = new WorkerClient();
@@ -26,7 +30,7 @@ export class EditSession implements monaco.IDisposable {
     this.sortFiles();
     this.activateFile(this.files[0]);
 
-    this.worker.resetFiles(this.files);
+    this.worker.resetFiles(this.files).then(this.run);
   }
 
   public activateFile(file: FileInfo) {
@@ -58,7 +62,7 @@ export class EditSession implements monaco.IDisposable {
     this.editorAdapter.add(file.name, file.content);
     this.activateFile(file);
     this.focusFilename();
-    this.worker.writeFile(file);
+    this.worker.writeFile(file).then(this.run);
   }
 
   public deleteFile(file: FileInfo) {
@@ -69,7 +73,7 @@ export class EditSession implements monaco.IDisposable {
     const index = this.files.indexOf(file);
     this.files.splice(index, 1);
     this.editorAdapter.remove(file.name);
-    this.worker.deleteFile(file);
+    this.worker.deleteFile(file).then(this.run);
   }
 
   public renameFile(file: FileInfo, newName: string) {
@@ -79,8 +83,10 @@ export class EditSession implements monaco.IDisposable {
     file.content = this.editorAdapter.rename(oldName, newName);
     file.dirty = true;
     this.sortFiles();
-    this.worker.deleteFile({ name: oldName, content: '' });
-    this.worker.writeFile(file);
+    Promise.all([
+      this.worker.deleteFile({ name: oldName, content: '' }),
+      this.worker.writeFile(file)
+    ]).then(this.run);
   }
 
   public dispose() {
@@ -99,7 +105,7 @@ export class EditSession implements monaco.IDisposable {
     const file = this.files.find(f => f.name === filename);
     file.dirty = true;
     file.content = content;
-    this.worker.writeFile(file);
+    this.worker.writeFile(file).then(this.run);
   }
 }
 

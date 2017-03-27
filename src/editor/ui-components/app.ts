@@ -5,11 +5,13 @@ import { EditSession } from '../edit-session';
 import { defaultGist } from '../github/default-gist';
 import { Gist } from '../github/gist';
 import { Importer } from '../import/importer';
+import { runUrl } from '../worker-client';
 
 @autoinject
 export class App {
   private editSession: EditSession;
   private editor: monaco.editor.IStandaloneCodeEditor;
+  private runFrame: HTMLIFrameElement;
 
   constructor(
     private readonly queryString: QueryString,
@@ -43,6 +45,10 @@ export class App {
     if (this.editSession) {
       this.editSession.dispose();
     }
-    this.editSession = new EditSession(this.editor, gist);
+    this.editSession = new EditSession(this.editor, gist, this.run);
+  }
+
+  private run = () => {
+    this.runFrame.src = runUrl;
   }
 }

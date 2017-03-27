@@ -2,7 +2,7 @@ export class EditorAdapter implements monaco.IDisposable {
   private readonly models: { [name: string]: monaco.editor.IModel; } = Object.create(null);
   private readonly viewState: { [name: string]: monaco.editor.IEditorViewState; } = Object.create(null);
   private readonly subscription: monaco.IDisposable;
-  private delay = 300;
+  private delay = 500;
   private timeoutHandle = 0;
   private name: string | null = null;
 
