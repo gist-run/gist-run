@@ -2,14 +2,14 @@
   <require from="./ga-custom-attribute"></require>
 
   <nav class="menu">
-    <a repeat.for="file of editSession.files"
-       class="menu-item ${editSession.currentFile === file ? 'selected' : ''}"
+    <a repeat.for="name of editSession.files"
+       class="menu-item ${editSession.currentFile === name ? 'selected' : ''}"
        href="#"
        ga
        ga-category="nav-panel"
        ga-action="file"
-       click.delegate="editSession.activateAndFocusFile(file)">
-      <span class="${file.content === '' ? 'menu-item--transient' : ''}">${file.name}</span>
+       click.delegate="editSession.activateAndFocusFile(name)">
+      <span>${name}</span>
     </a>
   </nav>
 

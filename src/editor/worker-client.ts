@@ -1,12 +1,7 @@
 import { postMessageToWorker } from './worker-activator';
-import { workerPage } from './config';
-
-const clientID = +new Date();
-
-export const runUrl = `${workerPage}run/${clientID}/index.html`;
 
 export class WorkerClient {
-  public sendMessage(message: GistFileMessage) {
+  public sendMessage(message: FilesMessage) {
     return new Promise((resolve, reject) => {
       const channel = new MessageChannel();
       channel.port1.onmessage = event => {
@@ -18,17 +13,5 @@ export class WorkerClient {
       };
       postMessageToWorker(message, channel.port2);
     });
-  }
-
-  public writeFile(file: GistFile) {
-    return this.sendMessage({ clientID, action: 'writeFile', file });
-  }
-
-  public deleteFile(file: GistFile) {
-    return this.sendMessage({ clientID, action: 'deleteFile', file });
-  }
-
-  public resetFiles(files: GistFile[]) {
-    return this.sendMessage({ clientID, action: 'resetFiles', files });
   }
 }

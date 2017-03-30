@@ -1,44 +1,31 @@
 import { Gist } from './github/gist';
 import { EditorAdapter } from './editor-adapter';
-import { WorkerClient } from './worker-client';
 
 export class EditSession implements monaco.IDisposable {
-  public gist: Gist;
-  public files: FileInfo[] = [];
-  public currentFile: FileInfo | null = null;
-  public dirty = false;
+  public files: string[] = [];
+  public currentFile: string | null = null;
 
-  private readonly editorAdapter: EditorAdapter;
-  private readonly worker: WorkerClient;
   private nextFile = 0;
 
   constructor(
-    editor: monaco.editor.IStandaloneCodeEditor,
-    gist: Gist,
+    private readonly editorAdapter: EditorAdapter,
+    public gist: Gist, // TODO: refactor
     private readonly run: () => void
   ) {
-    this.gist = gist;
-    this.editorAdapter = new EditorAdapter(editor, (name, content) => this.contentChanged(name, content));
-    this.worker = new WorkerClient();
-
-    const dirty = !('id' in gist);
-    this.dirty = dirty;
     for (const [name, { content }] of Object.entries(gist.files)) {
-      this.files.push({ name, content, dirty });
+      this.files.push(name);
       this.editorAdapter.add(name, content);
     }
     this.sortFiles();
     this.activateFile(this.files[0]);
-
-    this.worker.resetFiles(this.files).then(this.run);
   }
 
-  public activateFile(file: FileInfo) {
-    this.currentFile = file;
-    this.editorAdapter.activate(file.name);
+  public activateFile(name: string) {
+    this.currentFile = name;
+    this.editorAdapter.activate(name);
   }
 
-  public focus() {
+  public focusEditor() {
     setTimeout(() => this.editorAdapter.focus());
   }
 
@@ -51,42 +38,39 @@ export class EditSession implements monaco.IDisposable {
     });
   }
 
-  public activateAndFocusFile(file: FileInfo) {
-    this.activateFile(file);
-    this.focus();
+  public activateAndFocusFile(name: string) {
+    this.activateFile(name);
+    this.focusEditor();
   }
 
   public createFile() {
-    const file = { name: `new-${this.nextFile}`, content: '', dirty: true };
-    this.files.push(file);
-    this.editorAdapter.add(file.name, file.content);
-    this.activateFile(file);
+    const name = `new-${this.nextFile}`;
+    this.editorAdapter.add(name, '');
+    this.files.push(name);
+    this.activateFile(name);
     this.focusFilename();
-    this.worker.writeFile(file).then(this.run);
   }
 
-  public deleteFile(file: FileInfo) {
-    if (this.currentFile === file) {
-      this.activateFile(this.files.find(f => f !== file));
+  public deleteFile(name: string) {
+    if (this.currentFile === name) {
+      this.activateFile(this.files.find(f => f !== name));
     }
-    this.dirty = true;
-    const index = this.files.indexOf(file);
+    const index = this.files.indexOf(name);
+    this.editorAdapter.remove(name);
     this.files.splice(index, 1);
-    this.editorAdapter.remove(file.name);
-    this.worker.deleteFile(file).then(this.run);
   }
 
-  public renameFile(file: FileInfo, newName: string) {
-    this.dirty = true;
-    const oldName = file.name;
-    file.name = newName;
-    file.content = this.editorAdapter.rename(oldName, newName);
-    file.dirty = true;
+  public renameFile(oldName: string, newName: string) {
+    if (oldName === newName) {
+      return;
+    }
+    this.editorAdapter.rename(oldName, newName);
+    const index = this.files.indexOf(oldName);
+    this.files.splice(index, 1, newName);
     this.sortFiles();
-    Promise.all([
-      this.worker.deleteFile({ name: oldName, content: '' }),
-      this.worker.writeFile(file)
-    ]).then(this.run);
+    if (oldName === this.currentFile) {
+      this.activateFile(newName);
+    }
   }
 
   public dispose() {
@@ -94,23 +78,6 @@ export class EditSession implements monaco.IDisposable {
   }
 
   private sortFiles() {
-    this.files.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+    this.files.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
   }
-
-  private contentChanged(filename: string, content: string) {
-    if (this.gist.files[filename].content === content) {
-      return;
-    }
-    this.dirty = true;
-    const file = this.files.find(f => f.name === filename);
-    file.dirty = true;
-    file.content = content;
-    this.worker.writeFile(file).then(this.run);
-  }
-}
-
-export interface FileInfo {
-  name: string;
-  content: string;
-  dirty: boolean;
 }

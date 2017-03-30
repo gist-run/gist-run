@@ -1,5 +1,7 @@
 declare const caches: CacheStorage;
 
+(self as any).importScripts('node_modules/tslib/tslib.js');
+
 (self as ServiceWorkerGlobalScope).addEventListener('install', event => {
   // The skipWaiting() method allows this service worker to progress from the registration's
   // waiting position to active even while service worker clients are using the registration.
@@ -16,73 +18,62 @@ declare const caches: CacheStorage;
   event.waitUntil(self.clients.claim());
 });
 
-function createResponse(file: GistFile) {
+function createResponse(name: string, content: string) {
   const responseInit = {
     status: 200,
     statusText: 'OK',
     headers: {
-      'Content-Type': getContentType(file.name)
+      'Content-Type': getContentType(name)
     }
   };
-  return new Response(file.content, responseInit);
+  return new Response(content, responseInit);
 }
 
 function createUrl(clientID: number, name: string) {
   return new URL(`/run/${clientID}/${name}`, location.href).toString();
 }
 
-function createRequest(clientID: number, file: GistFile) {
-  const url = createUrl(clientID, file.name);
+function createRequest(clientID: number, name: string) {
+  const url = createUrl(clientID, name);
   return new Request(url, { mode: 'no-cors' });
 }
 
-function putFile(cache: Cache, clientID: number, file: GistFile) {
-  const response = createResponse(file);
-  const request = createRequest(clientID, file);
-  return cache.put(request, response);
-}
+let messageQueue = Promise.resolve();
 
-function writeFile(clientID: number, file: GistFile) {
-  return caches.open(clientID.toString())
-    .then(cache => putFile(cache, clientID, file));
-}
-
-function deleteFile(clientID: number, file: GistFile) {
-  const request = createRequest(clientID, file);
-  return caches.open(clientID.toString())
-    .then(cache => cache.delete(request));
-}
-
-function resetFiles(clientID: number, files: GistFile[]) {
-  return caches.delete(clientID.toString())
-    .then(() => caches.open(clientID.toString()))
-    .then(cache => Promise.all(files.map(file => putFile(cache, clientID, file))));
-}
-
-function handleMessage(event: MessageEvent) {
-  if (!event.data.action || event.ports.length !== 1) {
+async function handleMessageEvent(event: MessageEvent) {
+  if (!event.data.clientID || event.ports.length !== 1) {
     return;
   }
-  const message: GistFileMessage = event.data;
+
   const responsePort: MessagePort = event.ports[0];
-  let handler: Promise<any>;
-  switch (message.action) {
-    case 'writeFile':
-      handler = writeFile(message.clientID, message.file);
-      break;
-    case 'deleteFile':
-      handler = deleteFile(message.clientID, message.file);
-      break;
-    case 'resetFiles':
-      handler = resetFiles(message.clientID, message.files);
-      break;
-    default:
-      throw new Error('Unknown message action.');
-  }
-  handler.then(() => responsePort.postMessage('ok'));
+
+  await messageQueue.catch(error => console.error(error));
+  messageQueue = processFilesMessage(event.data as FilesMessage, responsePort);
 }
 
-(self as ServiceWorkerGlobalScope).addEventListener('message', handleMessage);
+async function processFilesMessage(
+  { clientID, reset, files }: FilesMessage,
+  responsePort: MessagePort
+) {
+  if (reset) {
+    await caches.delete(clientID.toString());
+  }
+  const cache = await caches.open(clientID.toString());
+  const promises: Promise<any>[] = [];
+  for (const [name, content] of Object.entries(files)) {
+    const request = createRequest(clientID, name);
+    if (content === null) {
+      promises.push(cache.delete(request));
+      continue;
+    }
+    const response = createResponse(name, content);
+    promises.push(cache.put(request, response));
+  }
+  await Promise.all(promises);
+  responsePort.postMessage('ok');
+}
+
+(self as ServiceWorkerGlobalScope).addEventListener('message', handleMessageEvent);
 
 function handleFetch(event: FetchEvent) {
   const request = event.request;

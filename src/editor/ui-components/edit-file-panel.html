@@ -3,19 +3,18 @@
   <require from="./code-editor"></require>
   <require from="./ga-custom-attribute"></require>
 
-  <div class="edit-file-panel__header"
-       with.bind="editSession">
-    <form submit.trigger="focus()">
+  <div class="edit-file-panel__header">
+    <form submit.trigger="focusEditor()">
       <div class="input-group"
-           show.bind="currentFile.name !== 'index.html'">
+           show.bind="editSession.currentFile !== 'index.html'">
         <input id="filename-input"
                class="form-control"
                type="text"
                placeholder="Filename including extension..."
-               value.one-way="currentFile.name"
-               blur.delegate="renameFile(currentFile, $event.target.value)">
+               value.one-way="editSession.currentFile"
+               blur.trigger="editSession.renameFile(editSession.currentFile, $event.target.value)">
         <span class="edit-file-panel__delete-button input-group-button">
-          <button type="button" class="btn" click.delegate="deleteFile(currentFile)"
+          <button type="button" class="btn" click.delegate="editSession.deleteFile(editSession.currentFile)"
                   ga ga-category="editor" ga-action="delete-file"
                   aria-label="Delete File">
             <svg class="octicon octicon-red" width="16" height="16">
@@ -28,7 +27,7 @@
              type="text"
              disabled
              value="index.html"
-             show.bind="currentFile.name === 'index.html'">
+             show.bind="editSession.currentFile === 'index.html'">
 
       <!-- need a submit button to make enter-key submit form -->
       <button type="submit"
