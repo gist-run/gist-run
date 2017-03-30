@@ -4,31 +4,16 @@
   height: 100%;
 }
 
-.split-panel--resizing {
-  user-select: none;
+.split-panel > div {
+  box-sizing: border-box;
 }
 
-.split-panel__panel,
-.split-panel__splitter {
+.split-panel > div,
+.gutter.gutter-horizontal {
   float: left;
   height: 100%;
 }
 
-.split-panel__panel {
-  position: relative;
-  overflow: hidden;
-}
-
-.split-panel__splitter {
+.gutter.gutter-horizontal {
   cursor: col-resize;
-}
-
-.split-panel__overlay {
-  position: absolute;
-  display: none;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
 }

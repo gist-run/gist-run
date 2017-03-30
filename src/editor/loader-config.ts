@@ -18,6 +18,7 @@ require.config({
     'aurelia-templating': 'node_modules/aurelia-templating/dist/amd/aurelia-templating',
     'aurelia-templating-binding': 'node_modules/aurelia-templating-binding/dist/amd/aurelia-templating-binding',
     'aurelia-templating-resources': 'node_modules/aurelia-templating-resources/dist/amd',
+    'Split': 'node_modules/split.js/split',
     'text': 'node_modules/text/text',
     'tslib': 'node_modules/tslib/tslib',
     'vs': 'node_modules/monaco-editor/dev/vs',
@@ -32,6 +33,11 @@ require.config({
   map: {
     '*': {
       'monaco-editor': 'vs/editor/editor.main'
+    }
+  },
+  shim: {
+    Split: {
+      exports: 'Split'
     }
   }
 });

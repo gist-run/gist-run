@@ -18,6 +18,7 @@ export class EditSession implements monaco.IDisposable {
     }
     this.sortFiles();
     this.activateFile(this.files[0]);
+    setTimeout(this.run, 1000);
   }
 
   public activateFile(name: string) {

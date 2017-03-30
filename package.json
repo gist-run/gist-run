@@ -53,6 +53,7 @@
     "octicons": "^5.0.1",
     "primer-css": "^5.0.0",
     "requirejs": "^2.3.3",
+    "split.js": "^1.2.0",
     "text": "requirejs/text",
     "tslib": "^1.6.0"
   }
