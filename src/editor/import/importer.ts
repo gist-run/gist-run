@@ -1,10 +1,11 @@
 import { Gist } from '../github/gist';
-import { GithubImporter } from './github-importer';
+import { CodePenImporter } from './codepen-importer';
+import { GitHubImporter } from './github-importer';
 import { JSFiddleImporter } from './jsfiddle-importer';
 import { PlunkerImporter } from './plunker-importer';
 
 export class Importer {
-  public static inject = [GithubImporter, JSFiddleImporter, PlunkerImporter];
+  public static inject = [CodePenImporter, GitHubImporter, JSFiddleImporter, PlunkerImporter];
 
   private importers: GistImporter[];
 

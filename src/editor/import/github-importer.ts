@@ -5,7 +5,7 @@ import { GistImporter } from './importer';
 const gistUrlRegex = /^https:\/\/gist\.github\.com(?:\/[^\/]+)?\/([\da-f]+)(?:\/([\da-f]{40}))?$/;
 
 @autoinject
-export class GithubImporter implements GistImporter {
+export class GitHubImporter implements GistImporter {
   constructor(private gists: Gists) { }
 
   public canImport(urlOrId: string) {

@@ -21,7 +21,7 @@ export class EditSessionFactory {
     const processFiles = (files: FilesMap) => {
       this.worker.sendMessage({ clientID, reset, files });
       reset = false;
-    }
+    };
     const editorAdapter = new EditorAdapter(editor, processFiles);
 
     const run = () => targetFrame.src = `${workerPage}run/${clientID}/index.html`;
