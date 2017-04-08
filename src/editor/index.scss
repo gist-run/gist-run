@@ -6,13 +6,58 @@
 // @import "primer-markdown/index.scss";
 // @import "primer-states/index.scss";
 
+$logo-blue: #4078C0;
+$gutter-width: 15px;
+$panel-gray: #f5f5f5;
+
 body {
-  display: flex;
   position: fixed;
-  left: 15px;
   top: 0;
-  right: 15px;
-  bottom: 15px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  height: 50px;
+  background-color: $panel-gray;
+  border-bottom:  1px solid $gray-300;
+  padding: 0 $gutter-width 0 $gutter-width;
+}
+
+.logo {
+  font-weight: bold;
+}
+
+.logo .word-run {
+  color: $logo-blue;
+}
+
+.logo.splash {
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 45%;
+  transform: translateY(-50%);
+  font-size: 90px;
+}
+
+header .logo {
+  font-size: 30px;
+  margin-right: $gutter-width;
+}
+
+header .gist-loader {
+  flex-grow: 1;
+}
+
+.header-logo,
+header > form + button {
+  margin-right: $gutter-width;
 }
 
 .octicon-red {

@@ -1,7 +1,13 @@
 <template>
+  <require from="./header.html"></require>
   <require from="./split-panel"></require>
   <require from="./side-nav"></require>
   <require from="./edit-file-panel.html"></require>
+
+  <header user.bind="user"
+          new.call="newGist()"
+          import.call="import(urlOrId)">
+  </header>
 
   <split-panel>
     <side-nav slot="left"

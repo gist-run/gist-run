@@ -5,6 +5,7 @@ import { EditSession } from '../edit-session';
 import { defaultGist } from '../github/default-gist';
 import { Gist } from '../github/gist';
 import { Importer } from '../import/importer';
+import { User } from '../github/user';
 
 @autoinject
 export class App {
@@ -14,7 +15,8 @@ export class App {
   constructor(
     private readonly queryString: QueryString,
     private readonly editSessionFactory: EditSessionFactory,
-    private readonly importer: Importer) {
+    private readonly importer: Importer,
+    public readonly user: User) {
   }
 
   public async attached() {
