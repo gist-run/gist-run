@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --project tsconfig.json",
-    "sprite": "svg-sprite --config svg-sprite.json \"node_modules/octicons/build/svg*/{code,gist,git-commit,info,repo-forked,repo-pull,trashcan}.svg\"",
+    "presprite": "rm -rf src/img/sprites && copyfiles --flat \"node_modules/octicons/build/svg*/{code,gist,git-commit,info,repo-forked,repo-pull,trashcan}.svg\" src/editor/img/sprites && copyfiles --flat src/editor/img/stack-overflow.svg src/editor/img/sprites",
+    "sprite": "svg-sprite --config svg-sprite.json \"src/editor/img/sprites/*.svg\"",
     "preimg": "yarn run sprite",
-    "img": "copyfiles --up 1 \"src/**/*.{ico,png,svg}\" dist",
+    "img": "copyfiles --up 1 \"src/editor/img/*.{ico,svg}\" dist",
     "html": "copyfiles --up 1 \"src/**/*.html\" dist",
     "sass": "node-sass src/editor/index.scss dist/editor/index.css --include-path node_modules",
     "prebuild": "rm -rf dist",

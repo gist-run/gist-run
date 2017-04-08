@@ -2,14 +2,14 @@
     "log": "info",
     "shape": {
         "id": {
-            "generator": "octicon-%s"
+            "generator": "icon-%s"
         }
     },
     "mode": {
         "symbol": {
-            "dest": "src/editor",
-            "prefix": ".octicon-%s",
-            "sprite": "img/octicons.svg"
+            "dest": "src/editor/img",
+            "prefix": ".icon-%s",
+            "sprite": "icons.svg"
         }
     }
 }

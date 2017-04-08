@@ -5,16 +5,16 @@ export class EditSession implements Disposable {
   public files: string[] = [];
   public currentFile: string | null = null;
 
-  private running = true;
+  private autoRun = true;
   private nextFile = 0;
 
   constructor(
     private readonly editor: MultiFileEditor,
-    public gist: Gist, // TODO: refactor
+    private gist: Gist,
     private readonly run: () => void
   ) {
     editor.consistent(() => {
-      if (this.running) {
+      if (this.autoRun) {
         this.run();
       }
     });
@@ -29,11 +29,18 @@ export class EditSession implements Disposable {
     this.activateFile(this.files[0]);
   }
 
-  public toggleRun() {
-    this.running = !this.running;
-    if (this.running) {
+  public toggleAutoRun() {
+    this.autoRun = !this.autoRun;
+    if (this.autoRun) {
       this.run();
     }
+  }
+
+  public get description() {
+    return this.gist.description;
+  }
+  public set description(value) {
+    this.gist.description = value;
   }
 
   public activateFile(name: string) {
@@ -43,6 +50,7 @@ export class EditSession implements Disposable {
 
   public focusEditor() {
     setTimeout(() => this.editor.focus());
+    setTimeout(() => this.editor.focus(), 20);
   }
 
   public focusFilename() {
@@ -60,7 +68,11 @@ export class EditSession implements Disposable {
   }
 
   public createFile() {
-    const name = `new-${this.nextFile}`;
+    let name: string;
+    do {
+      name = `new-${this.nextFile}`;
+      this.nextFile++;
+    } while (this.files.find(f => f === name));
     this.editor.add(name, '');
     this.files.push(name);
     this.activateFile(name);
@@ -78,6 +90,12 @@ export class EditSession implements Disposable {
 
   public renameFile(oldName: string, newName: string) {
     if (oldName === newName) {
+      return;
+    }
+    if (this.files.find(f => f !== oldName && f === newName)) {
+      const current = this.currentFile;
+      this.currentFile = '';
+      this.currentFile = current;
       return;
     }
     this.editor.rename(oldName, newName);

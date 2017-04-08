@@ -7,5 +7,5 @@
   "html.suggest.angular1": false,
   "html.suggest.ionic": false,
   "html.format.enable": false,
-  "html.format.wrapAttributes": "force-aligned",
+  "html.format.wrapAttributes": "force-aligned"
 }

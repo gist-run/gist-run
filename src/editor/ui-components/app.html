@@ -1,5 +1,6 @@
 <template>
   <require from="./header.html"></require>
+  <require from="./command-bar.html"></require>
   <require from="./split-panel"></require>
   <require from="./side-nav"></require>
   <require from="./edit-file-panel.html"></require>
@@ -9,12 +10,14 @@
           import.call="import(urlOrId)">
   </header>
 
+  <command-bar session.bind="session"></command-bar>
+
   <split-panel>
     <side-nav slot="left"
-              edit-session.bind="editSession">
+              session.bind="session">
     </side-nav>
     <edit-file-panel slot="center"
-                     edit-session.bind="editSession">
+                     session.bind="session">
     </edit-file-panel>
     <div slot="right"
          class="run-frame">

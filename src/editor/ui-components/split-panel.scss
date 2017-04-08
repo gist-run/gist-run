@@ -1,9 +1,9 @@
 .split-panel {
   display: block;
   box-sizing: border-box;
-  width: calc(100% - 30px);
-  height: calc(100% - 80px);
-  margin: 15px;
+  width: 100%;
+  height: calc(100% - 2 * 15px - 50px - 34px);
+  padding: 0 15px 15px 15px;
 }
 
 .split-panel > div {

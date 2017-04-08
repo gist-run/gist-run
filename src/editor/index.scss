@@ -25,8 +25,14 @@ header {
   box-sizing: border-box;
   height: 50px;
   background-color: $panel-gray;
-  border-bottom:  1px solid $gray-300;
+  border-bottom: 1px solid $gray-300;
   padding: 0 $gutter-width 0 $gutter-width;
+}
+
+command-bar {
+  display: flex;
+  flex-direction: row;
+  padding: $gutter-width;
 }
 
 .logo {
@@ -60,8 +66,21 @@ header > form + button {
   margin-right: $gutter-width;
 }
 
+command-bar button + button {
+  margin-left: 5px;
+}
+
+command-bar input {
+  flex-grow: 1;
+  margin: 0 $gutter-width;
+}
+
 .octicon-red {
   fill: $red;
+}
+
+.octicon-stack-overflow {
+  transform: scale(1.3);
 }
 
 .run-frame {
@@ -74,6 +93,20 @@ header > form + button {
 .run-frame > iframe {
   width: 100%;
   height: 100%;
+}
+
+.btn-secret {
+  background-color: #e6e1c0;
+  background-image: -webkit-linear-gradient(#fffad5, #e6e1c0);
+  background-image: linear-gradient(#fffad5, #e6e1c0);
+  border-color: #e3deb9;
+}
+
+.btn-secret:hover {
+  background-color: #dfd8ae;
+  background-image: -webkit-linear-gradient(#fff7bc, #dfd8ae);
+  background-image: linear-gradient(#fff7bc, #dfd8ae);
+  border-color: #dad3a3;
 }
 
 @import "./ui-components/code-editor.scss";

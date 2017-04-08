@@ -9,12 +9,12 @@ import { User } from '../github/user';
 
 @autoinject
 export class App {
-  private editSession: EditSession | null = null;
+  private session: EditSession | null = null;
   private runFrame: HTMLIFrameElement;
 
   constructor(
     private readonly queryString: QueryString,
-    private readonly editSessionFactory: EditSessionFactory,
+    private readonly sessionFactory: EditSessionFactory,
     private readonly importer: Importer,
     public readonly user: User) {
   }
@@ -38,10 +38,10 @@ export class App {
   }
 
   private async createEditSession(gist: Gist) {
-    if (this.editSession) {
-      this.editSession.dispose();
-      this.editSession = null;
+    if (this.session) {
+      this.session.dispose();
+      this.session = null;
     }
-    this.editSession = await this.editSessionFactory.create(gist, this.runFrame);
+    this.session = await this.sessionFactory.create(gist, this.runFrame);
   }
 }

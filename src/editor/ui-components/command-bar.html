@@ -1,0 +1,40 @@
+<template bindable="session">
+  <require from="./ga-custom-attribute"></require>
+
+  <button class="btn" click.delegate="session.createFile()"
+          ga ga-category="editor-commands" ga-action="new-file">
+    Add File
+  </button>
+
+  <button class="btn ${session.autoRun ? 'btn-danger' : 'btn-primary'} m-l-5"
+          click.delegate="session.toggleAutoRun()"
+          ga ga-category="editor-commands" ga-action="run-stop">
+    ${session.autoRun ? 'Stop' : 'Run'}
+  </button>
+
+  <input class="form-control input-contrast" type="text" placeholder="Gist description..."
+         value.bind="session.description">
+
+  <button class="btn btn-secret tooltipped tooltipped-s" aria-label="Secret gists are hidden from search engines but visible to anyone you give the URL."
+          click.delegate="session.save($event.target.textContent, { fork: false, secret: true })"
+          show.bind="saveAction !== 'Update'"
+          ga ga-category="editor-commands" ga-action="fork-secret">
+    ${saveAction === 'Fork' ? 'Fork to' : 'Create'} Secret Gist
+  </button>
+  <button class="btn m-l-5" click.delegate="session.save($event.target.textContent, { fork: false, secret: false })"
+          show.bind="saveAction !== 'Update'"
+          ga ga-category="editor-commands" ga-action="fork-public">
+    ${saveAction === 'Fork' ? 'Fork to' : 'Create'} Public Gist
+  </button>
+
+  <button class="btn btn-primary" click.delegate="session.save($event.target.textContent, { fork: false })"
+          show.bind="saveAction === 'Update'"
+          ga ga-category="editor-commands" ga-action="update">
+    Update${public ? ' ' : ' Secret '}Gist
+  </button>
+  <button class="btn m-l-5" click.delegate="session.save($event.target.textContent, { fork: true })"
+          show.bind="saveAction === 'Update'"
+          ga ga-category="editor-commands" ga-action="fork">
+    Fork${public ? ' ' : ' Secret '}Gist
+  </button>
+</template>
