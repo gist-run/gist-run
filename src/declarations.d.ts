@@ -1,7 +1,7 @@
-interface FilesMessage {
-  clientID: number;
-  reset: boolean;
-  files: FilesMap;
+interface FilesMap { [name: string]: string | null; }
+
+interface Disposable {
+  dispose(): void;
 }
 
-interface FilesMap { [name: string]: string | null; }
+type WorkerMessage = { session: number; type: 'files'; files: FilesMap; };

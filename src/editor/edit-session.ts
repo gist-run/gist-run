@@ -1,33 +1,48 @@
 import { Gist } from './github/gist';
-import { EditorAdapter } from './editor-adapter';
+import { MultiFileEditor } from './multi-file-editor';
 
-export class EditSession implements monaco.IDisposable {
+export class EditSession implements Disposable {
   public files: string[] = [];
   public currentFile: string | null = null;
 
+  private running = true;
   private nextFile = 0;
 
   constructor(
-    private readonly editorAdapter: EditorAdapter,
+    private readonly editor: MultiFileEditor,
     public gist: Gist, // TODO: refactor
     private readonly run: () => void
   ) {
+    editor.consistent(() => {
+      if (this.running) {
+        this.run();
+      }
+    });
+
     for (const [name, { content }] of Object.entries(gist.files)) {
       this.files.push(name);
-      this.editorAdapter.add(name, content);
+      this.editor.add(name, content);
     }
+
     this.sortFiles();
+
     this.activateFile(this.files[0]);
-    setTimeout(this.run, 1000);
+  }
+
+  public toggleRun() {
+    this.running = !this.running;
+    if (this.running) {
+      this.run();
+    }
   }
 
   public activateFile(name: string) {
     this.currentFile = name;
-    this.editorAdapter.activate(name);
+    this.editor.activate(name);
   }
 
   public focusEditor() {
-    setTimeout(() => this.editorAdapter.focus());
+    setTimeout(() => this.editor.focus());
   }
 
   public focusFilename() {
@@ -46,7 +61,7 @@ export class EditSession implements monaco.IDisposable {
 
   public createFile() {
     const name = `new-${this.nextFile}`;
-    this.editorAdapter.add(name, '');
+    this.editor.add(name, '');
     this.files.push(name);
     this.activateFile(name);
     this.focusFilename();
@@ -57,7 +72,7 @@ export class EditSession implements monaco.IDisposable {
       this.activateFile(this.files.find(f => f !== name));
     }
     const index = this.files.indexOf(name);
-    this.editorAdapter.remove(name);
+    this.editor.remove(name);
     this.files.splice(index, 1);
   }
 
@@ -65,17 +80,14 @@ export class EditSession implements monaco.IDisposable {
     if (oldName === newName) {
       return;
     }
-    this.editorAdapter.rename(oldName, newName);
+    this.editor.rename(oldName, newName);
     const index = this.files.indexOf(oldName);
     this.files.splice(index, 1, newName);
     this.sortFiles();
-    if (oldName === this.currentFile) {
-      this.activateFile(newName);
-    }
   }
 
   public dispose() {
-    this.editorAdapter.dispose();
+    this.editor.dispose();
   }
 
   private sortFiles() {

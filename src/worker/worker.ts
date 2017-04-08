@@ -29,39 +29,39 @@ function createResponse(name: string, content: string) {
   return new Response(content, responseInit);
 }
 
-function createUrl(clientID: number, name: string) {
-  return new URL(`/run/${clientID}/${name}`, location.href).toString();
+function createUrl(session: number, name: string) {
+  return new URL(`/run/${session}/${name}`, location.href).toString();
 }
 
-function createRequest(clientID: number, name: string) {
-  const url = createUrl(clientID, name);
+function createRequest(session: number, name: string) {
+  const url = createUrl(session, name);
   return new Request(url, { mode: 'no-cors' });
 }
 
 let messageQueue = Promise.resolve();
 
 async function handleMessageEvent(event: MessageEvent) {
-  if (!event.data.clientID || event.ports.length !== 1) {
+  if (!event.data.session || event.ports.length !== 1) {
     return;
   }
 
   const responsePort: MessagePort = event.ports[0];
 
   await messageQueue.catch(error => console.error(error));
-  messageQueue = processFilesMessage(event.data as FilesMessage, responsePort);
+  messageQueue = processFilesMessage(event.data as WorkerMessage, responsePort);
 }
 
 async function processFilesMessage(
-  { clientID, reset, files }: FilesMessage,
+  { session, type, files }: WorkerMessage,
   responsePort: MessagePort
 ) {
-  if (reset) {
-    await caches.delete(clientID.toString());
+  if (type !== 'files') {
+    return;
   }
-  const cache = await caches.open(clientID.toString());
+  const cache = await caches.open('files');
   const promises: Promise<any>[] = [];
   for (const [name, content] of Object.entries(files)) {
-    const request = createRequest(clientID, name);
+    const request = createRequest(session, name);
     if (content === null) {
       promises.push(cache.delete(request));
       continue;
@@ -91,10 +91,13 @@ function handleFetch(event: FetchEvent) {
 
 const contentTypeMap: { [extension: string]: string } = {
   css: 'text/css',
+  csv: 'text/csv',
   js: 'application/javascript',
   json: 'application/json',
+  htm: 'text/html',
   html: 'text/html',
-  svg: 'image/svg+xml'
+  svg: 'image/svg+xml',
+  xml: 'application/xml'
 };
 
 function getExtension(name: string) {
