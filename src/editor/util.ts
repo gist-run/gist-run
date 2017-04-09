@@ -21,7 +21,6 @@ export function param(obj: { [name: string]: string; }) {
   return parts.join('&');
 }
 
-
 // http://stackoverflow.com/a/30810322/725866
 export function copyTextToClipboard(text: string) {
   const textArea = document.createElement('textarea');
