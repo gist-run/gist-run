@@ -26,3 +26,8 @@ export interface GistImporter {
   canImport(urlOrId: string): boolean;
   import(urlOrId: string): Promise<Gist>;
 }
+
+export interface GistPrototype {
+  description: string;
+  files: FilesMap;
+}

@@ -1,21 +1,19 @@
-declare const caches: CacheStorage;
-
 (self as any).importScripts('node_modules/tslib/tslib.js');
 
-(self as ServiceWorkerGlobalScope).addEventListener('install', event => {
+self.addEventListener('install', event => {
   // The skipWaiting() method allows this service worker to progress from the registration's
   // waiting position to active even while service worker clients are using the registration.
   // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-global-scope-skipwaiting
-  event.waitUntil(self.skipWaiting());
+  (event as any).waitUntil((self as any).skipWaiting());
 });
 
-(self as ServiceWorkerGlobalScope).addEventListener('activate', event => {
+self.addEventListener('activate', event => {
   // The claim() method of the of the Clients interface allows an active Service Worker to set
   // itself as the active worker for a client page when the worker and the page are in the same
   // scope. This triggers an oncontrollerchange event on any client pages within the Service
   // Worker's scope.
   // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#clients-claim-method
-  event.waitUntil(self.clients.claim());
+  (event as any).waitUntil((self as any).clients.claim());
 });
 
 function createResponse(name: string, content: string) {
@@ -73,7 +71,9 @@ async function processFilesMessage(
   responsePort.postMessage('ok');
 }
 
-(self as ServiceWorkerGlobalScope).addEventListener('message', handleMessageEvent);
+self.addEventListener('message', handleMessageEvent);
+
+type FetchEvent = any;
 
 function handleFetch(event: FetchEvent) {
   const request = event.request;
@@ -87,7 +87,7 @@ function handleFetch(event: FetchEvent) {
     .then(response => response ? response : fetch(request)));
 }
 
-(self as ServiceWorkerGlobalScope).addEventListener('fetch', handleFetch);
+self.addEventListener('fetch', handleFetch);
 
 const contentTypeMap: { [extension: string]: string } = {
   css: 'text/css',

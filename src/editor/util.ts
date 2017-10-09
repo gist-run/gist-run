@@ -35,3 +35,11 @@ export function copyTextToClipboard(text: string) {
   } catch (err) { }
   document.body.removeChild(textArea);
 }
+
+export function backslash(name: string) {
+  return name.replace(/\//g, '\\');
+}
+
+export function forwardSlash(name: string) {
+  return name.replace(/\\/g, '/');
+}

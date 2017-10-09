@@ -1,5 +1,7 @@
-import { Gist } from './github/gist';
+import { Gist, isSaved } from './github/gist';
 import { MultiFileEditor } from './multi-file-editor';
+import { getStackOverflowMarkdown } from './stack-overflow-markdown';
+import { copyTextToClipboard, forwardSlash } from './util';
 
 export class EditSession implements Disposable {
   public files: string[] = [];
@@ -9,8 +11,8 @@ export class EditSession implements Disposable {
   private nextFile = 0;
 
   constructor(
+    public gist: Gist,
     private readonly editor: MultiFileEditor,
-    private gist: Gist,
     private readonly run: () => void
   ) {
     editor.consistent(() => {
@@ -19,7 +21,8 @@ export class EditSession implements Disposable {
       }
     });
 
-    for (const [name, { content }] of Object.entries(gist.files)) {
+    for (let [name, { content }] of Object.entries(gist.files)) {
+      name = forwardSlash(name);
       this.files.push(name);
       this.editor.add(name, content);
     }
@@ -102,6 +105,17 @@ export class EditSession implements Disposable {
     const index = this.files.indexOf(oldName);
     this.files.splice(index, 1, newName);
     this.sortFiles();
+    if (this.currentFile === oldName) {
+      this.activateFile(newName);
+    }
+  }
+
+  public copyForStackOverflow() {
+    if (!isSaved(this.gist)) {
+      throw new Error('Gist is not saved.');
+    }
+    const md = getStackOverflowMarkdown(this.gist);
+    copyTextToClipboard(md);
   }
 
   public dispose() {

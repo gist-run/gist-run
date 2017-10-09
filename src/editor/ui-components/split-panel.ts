@@ -19,7 +19,7 @@ export class SplitPanel {
         direction: 'horizontal',
         gutterSize: 15,
         sizes: width < 1800 ? [20, 45, 35] : [10, 50, 40],
-        minSize: 50,
+        minSize: 150,
         snapOffset: 0,
         onDrag: () => this.element.dispatchEvent(DOM.createCustomEvent('resize', { bubbles: true }))
       });

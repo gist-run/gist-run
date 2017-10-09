@@ -2,8 +2,8 @@ import { autoinject } from 'aurelia-framework';
 import { QueryString } from '../query-string';
 import { EditSessionFactory } from '../edit-session-factory';
 import { EditSession } from '../edit-session';
-import { defaultGist } from '../github/default-gist';
 import { Gist } from '../github/gist';
+import { defaultGist } from '../default-gist';
 import { Importer } from '../import/importer';
 import { User } from '../github/user';
 
@@ -42,6 +42,6 @@ export class App {
       this.session.dispose();
       this.session = null;
     }
-    this.session = await this.sessionFactory.create(gist, this.runFrame);
+    this.session = await this.sessionFactory.createFromGist(gist, this.runFrame);
   }
 }

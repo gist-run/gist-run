@@ -1,84 +1,56 @@
-<template class="side-nav">
+<template class="side-nav" bindable="session">
   <require from="./ga-custom-attribute"></require>
 
   <nav class="menu">
     <a repeat.for="name of session.files"
        class="menu-item ${session.currentFile === name ? 'selected' : ''}"
-       href="#"
-       ga
-       ga-category="nav-panel"
-       ga-action="file"
-       click.delegate="session.activateAndFocusFile(name)">
+       href="#" click.delegate="session.activateAndFocusFile(name)"
+       ga ga-category="nav-panel" ga-action="file">
       <span>${name}</span>
     </a>
   </nav>
 
   <nav class="menu">
     <a class="menu-item"
-       href="${session.gist.html_url}"
-       target="_blank"
+       href="${session.gist.html_url}" target="_blank"
        show.bind="session.gist.html_url"
-       ga
-       ga-category="nav-panel"
-       ga-action="gist">
-      <svg class="octicon"
-           width="16"
-           height="16">
+       ga ga-category="nav-panel" ga-action="gist">
+      <svg class="octicon" width="16" height="16">
         <use xlink:href="img/icons.svg#icon-gist"></use>
       </svg>
       Gist
     </a>
     <a class="menu-item"
-       href="${session.gist.html_url}/revisions"
-       target="_blank"
+       href="${session.gist.html_url}/revisions" target="_blank"
        show.bind="session.gist.html_url"
-       ga
-       ga-category="nav-panel"
-       ga-action="revisions">
-      <svg class="octicon"
-           width="16"
-           height="16">
+       ga ga-category="nav-panel" ga-action="revisions">
+      <svg class="octicon" width="16" height="16">
         <use xlink:href="img/icons.svg#icon-git-commit"></use>
       </svg>
-      <span class="counter">${session.gist.history.length || 0}</span> Revisions
+      <span class="Counter Counter--gray">${session.gist.history.length || 0}</span> Revisions
     </a>
     <a class="menu-item"
-       href="${session.gist.html_url}/forks"
-       target="_blank"
+       href="${session.gist.html_url}/forks" target="_blank"
        show.bind="session.gist.html_url"
-       ga
-       ga-category="nav-panel"
-       ga-action="forks">
-      <svg class="octicon"
-           width="16"
-           height="16">
+       ga ga-category="nav-panel" ga-action="forks">
+      <svg class="octicon" width="16" height="16">
         <use xlink:href="img/icons.svg#icon-repo-forked"></use>
       </svg>
-      <span class="counter">${session.gist.forks.length || 0}</span> Forks
+      <span class="Counter Counter--gray">${session.gist.forks.length || 0}</span> Forks
     </a>
     <a class="menu-item"
-       href="#"
-       click.delegate="copyForStackOverflow()"
+       href="#" click.delegate="session.copyForStackOverflow()"
        show.bind="session.gist.html_url"
-       ga
-       ga-category="nav-panel"
-       ga-action="stack-overflow-copy">
-      <svg class="octicon octicon-stack-overflow"
-           width="16"
-           height="16">
+       ga ga-category="nav-panel" ga-action="stack-overflow-copy">
+      <svg class="octicon octicon-stack-overflow" width="16" height="16">
         <use xlink:href="img/icons.svg#icon-stack-overflow"></use>
       </svg> Copy
     </a>
     <a class="menu-item"
-       href="embed.html?id=${session.gist.id}"
-       target="_blank"
+       href="embed.html?id=${session.gist.id}" target="_blank"
        show.bind="session.gist.html_url"
-       ga
-       ga-category="nav-panel"
-       ga-action="embed">
-      <svg class="octicon"
-           width="16"
-           height="16">
+       ga ga-category="nav-panel" ga-action="embed">
+      <svg class="octicon" width="16" height="16">
         <use xlink:href="img/icons.svg#icon-code"></use>
       </svg>
       Embed
@@ -90,14 +62,9 @@
       Run Outside
     </a> -->
     <a class="menu-item"
-       href="https://github.com/gist-run/gist-run/blob/master/README.md"
-       target="_blank"
-       ga
-       ga-category="nav-panel"
-       ga-action="about">
-      <svg class="octicon"
-           width="16"
-           height="16">
+       href="https://github.com/gist-run/gist-run/blob/master/README.md" target="_blank"
+       ga ga-category="nav-panel" ga-action="about">
+      <svg class="octicon" width="16" height="16">
         <use xlink:href="img/icons.svg#icon-info"></use>
       </svg>
       About

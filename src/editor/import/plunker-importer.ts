@@ -1,5 +1,5 @@
-import { UnsavedGist } from '../github/gist';
 import { GistImporter } from './importer';
+import { GistPrototype } from '../github/gist';
 
 const urlRegex = /^http(?:s)?:\/\/(?:embed.)?plnkr.co\/(?:edit\/)?([\da-zA-Z]+)/;
 
@@ -21,10 +21,13 @@ export class PlunkerImporter implements GistImporter {
         return Promise.reject('Error loading plunk.');
       })
       .then(plunk => {
-        const gist: UnsavedGist = { description: plunk.description, files: {} };
+        const gist: GistPrototype = { description: plunk.description, files: {} };
         for (const name in plunk.files) {
           if (plunk.files.hasOwnProperty(name)) {
-            gist.files[name] = { content: plunk.files[name].content };
+            gist.files[name] = {
+              filename: name,
+              content: plunk.files[name].content
+            };
           }
         }
         return gist;

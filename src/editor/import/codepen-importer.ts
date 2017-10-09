@@ -1,5 +1,5 @@
 import { GistImporter } from './importer';
-import { UnsavedGist } from '../github/gist';
+import { GistPrototype } from '../github/gist';
 
 export class CodePenImporter implements GistImporter {
   public canImport(urlOrId: string) {
@@ -20,7 +20,7 @@ export class CodePenImporter implements GistImporter {
       .then(page => this.penHtmlToGist(page));
   }
 
-  private penHtmlToGist(page: string): UnsavedGist {
+  private penHtmlToGist(page: string): GistPrototype {
     const div = document.createElement('div');
     div.innerHTML = /<input type="hidden" id="init-data" value=".*">/.exec(page)[0];
     const initData = (div.firstElementChild as HTMLInputElement).value;
@@ -30,13 +30,16 @@ export class CodePenImporter implements GistImporter {
       description: pen.title,
       files: {
         'index.html': {
+          filename: 'index.html',
           // tslint:disable-next-line:max-line-length
           content: `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <title>GistRun</title>\n  <link rel="stylesheet" href="styles.css">\n</head>\n<body>\n${pen.html}\n  <script src="script.js"></script>\n</body>\n</html>`
         },
         'script.js': {
+          filename: 'script.js',
           content: pen.js
         },
         'styles.css': {
+          filename: 'styles.css',
           content: pen.css
         }
       }

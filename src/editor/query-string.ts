@@ -1,8 +1,8 @@
 import { autoinject } from 'aurelia-framework';
 import { param, deparam } from './util';
 import { Gists } from './github/gists';
-import { Gist, SavedGist } from './github/gist';
-import { defaultGist } from './github/default-gist';
+import { Gist, isSaved } from './github/gist';
+import { defaultGist } from './default-gist';
 
 @autoinject
 export class QueryString {
@@ -34,16 +34,15 @@ export class QueryString {
   }
 
   public write(gist: Gist, withSha: boolean) {
-    if (!('id' in gist)) {
+    if (!isSaved(gist)) {
       this.clear();
       return;
     }
-    const saved = gist as SavedGist;
     let query;
     if (withSha) {
-      query = param({ id: saved.id, sha: saved.history[0].version });
+      query = param({ id: gist.id, sha: gist.history[0].version });
     } else {
-      query = param({ id: saved.id });
+      query = param({ id: gist.id });
     }
     this.history.pushState(null, this.document.title, '?' + query);
   }

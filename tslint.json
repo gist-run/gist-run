@@ -13,6 +13,8 @@
     "array-type": ["array-simple"],
     "arrow-parens": false,
     "max-classes-per-file": [false],
-    "prefer-for-of": false
+    "prefer-for-of": false,
+    "no-console": [false],
+    "prefer-conditional-expression": false
   }
 }

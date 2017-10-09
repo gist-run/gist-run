@@ -2,7 +2,7 @@ import { FileSystem } from './file-system';
 
 export class MultiFileEditor implements Disposable {
   private readonly models: { [name: string]: monaco.editor.IModel; } = Object.create(null);
-  private readonly viewState: { [name: string]: monaco.editor.IEditorViewState; } = Object.create(null);
+  private readonly viewState: { [name: string]: monaco.editor.ICodeEditorViewState; } = Object.create(null);
   private name: string | null = null;
 
   constructor(

@@ -1,6 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { ApiClient } from './api-client';
-import { SavedGist, UnsavedGist } from './gist';
+import { SavedGist } from './gist';
 
 @autoinject
 export class Gists {
@@ -26,16 +26,16 @@ export class Gists {
       });
   }
 
-  public update(id: string, gist: SavedGist) {
+  public update(id: string, body: UpdateGistBody): Promise<SavedGist> {
     const init = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(gist)
+      body: JSON.stringify(body)
     };
     return this.api.fetch(`gists/${id}`, init)
-      .then(response => {
+      .then<SavedGist>(response => {
         if (response.ok) {
           return response.json();
         }
@@ -44,16 +44,16 @@ export class Gists {
       });
   }
 
-  public create(gist: UnsavedGist) {
+  public create(body: CreateGistBody): Promise<SavedGist> {
     const init = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(gist)
+      body: JSON.stringify(body)
     };
     return this.api.fetch(`gists`, init)
-      .then(response => {
+      .then<SavedGist>(response => {
         if (response.ok) {
           return response.json();
         }
@@ -62,7 +62,7 @@ export class Gists {
       });
   }
 
-  public fork(id: string) {
+  public fork(id: string): Promise<SavedGist> {
     return this.api.fetch(`gists/${id}/forks`, { method: 'POST' })
       .then<{ id: string; }>(response => {
         if (response.ok) {
@@ -73,4 +73,26 @@ export class Gists {
       })
       .then(fork => this.load(fork.id));
   }
+}
+
+export interface CreateGistBody {
+  description: string;
+  public: boolean;
+  files: {
+    [name: string]: {
+      content: string;
+    };
+  };
+}
+
+export interface UpdateGistBody {
+  description: string;
+  files: {
+    [name: string]: null | {
+      content: string;
+    } | {
+      filename: string;
+      content: string;
+    };
+  };
 }

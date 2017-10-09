@@ -13,7 +13,13 @@ export class CodeEditor {
     private element: Element) { }
 
   public attached() {
-    this.editor = monaco.editor.create(this.element as HTMLElement, { model: null });
+    this.editor = monaco.editor.create(
+      this.element as HTMLElement,
+      {
+        model: null,
+        minimap: { enabled: false },
+        scrollBeyondLastLine: false
+      });
     this.window.addEventListener('resize', this.layout);
     this.editorResolver.resolve(this.editor);
   }

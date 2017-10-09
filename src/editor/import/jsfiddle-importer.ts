@@ -1,5 +1,5 @@
 import { GistImporter } from './importer';
-import { UnsavedGist } from '../github/gist';
+import { GistPrototype } from '../github/gist';
 
 export class JSFiddleImporter implements GistImporter {
   public canImport(urlOrId: string) {
@@ -20,7 +20,7 @@ export class JSFiddleImporter implements GistImporter {
       .then(page => this.fiddleHtmlToGist(page));
   }
 
-  private fiddleHtmlToGist(page: string): UnsavedGist {
+  private fiddleHtmlToGist(page: string): GistPrototype {
     const div = document.createElement('div');
     div.innerHTML = /<input id="id_title".*\/>/.exec(page)[0];
     const title = (div.firstElementChild as HTMLInputElement).value;
@@ -37,13 +37,16 @@ export class JSFiddleImporter implements GistImporter {
       description: (title + ' - ' + description).replace(/(^ - )|( - )$/, ''),
       files: {
         'index.html': {
+          filename: 'index.html',
           // tslint:disable-next-line:max-line-length
-          content: `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <title>GistRun</title>\n  <link rel="stylesheet" href="styles.css">\n</head>\n<body>\n${html}\n  <script src="script.js"></script>\n</body>\n</html>`
+          content: `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <title>GistRun</title>\n  <link rel="stylesheet" href="styles.css">\n</head>\n<body>\n${html}\n  <script src="script.js"></script>\n</body>\n</html>`,
         },
         'script.js': {
+          filename: 'script.js',
           content: js
         },
         'styles.css': {
+          filename: 'styles.css',
           content: css
         }
       }
