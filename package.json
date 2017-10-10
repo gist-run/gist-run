@@ -13,12 +13,13 @@
     "html": "copyfiles --up 1 \"src/**/*.html\" dist",
     "sass": "node-sass src/editor/index.scss dist/editor/index.css --include-path node_modules",
     "prebuild": "rm -rf dist",
-    "build": "tsc && yarn run sass && yarn run html && yarn run img",
+    "build": "tsc && yarn run sass && yarn run html && yarn run img && yarn run bundler bundle",
     "serve-editor": "browser-sync start --server ./ --server dist/editor --files dist/editor --port 9000 --no-open --no-ui --no-online",
     "serve-worker": "browser-sync start --server ./ --server dist/worker --files dist/worker --port 3000 --no-open --no-ui --no-online",
     "watch-html": "chokidar \"src/**/*.html\" --command \"yarn run html\"",
-    "predevelop": "yarn run build",
-    "develop": "concurrently \"tsc --watch\" \"yarn run sass -- --watch --recursive\" \"yarn run serve-editor\" \"yarn run serve-worker\" \"yarn run watch-html\""
+    "predevelop": "yarn run build && yarn run bundler unbundle",
+    "develop": "concurrently \"tsc --watch\" \"yarn run sass --watch --recursive\" \"yarn run serve-editor\" \"yarn run serve-worker\" \"yarn run watch-html\"",
+    "bundler": "node bundler.js"
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,7 @@
     "requirejs": "^2.3.5",
     "split.js": "^1.3.5",
     "text": "requirejs/text",
-    "tslib": "^1.7.1"
+    "tslib": "^1.7.1",
+    "uglify-es": "^3.1.3"
   }
 }

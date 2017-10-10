@@ -2,4 +2,3 @@
 node_modules
 dist
 src/editor/img/sprites
-src/editor/gist-run-master
