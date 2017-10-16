@@ -3,8 +3,8 @@ const rjs = require('requirejs');
 const config = require('./dist/editor/loader-config').config;
 // @ts-check
 const glob = require('glob');
-const globp = pattern => new Promise((resolve, reject) => {
-  glob(pattern, (err, matches) => err ? reject(err) : resolve(matches));
+const globp = (pattern, options) => new Promise((resolve, reject) => {
+  glob(pattern, options, (err, matches) => err ? reject(err) : resolve(matches));
 });
 
 config.baseUrl = 'dist/editor';
@@ -33,12 +33,14 @@ for (const package of config.packages) {
   package.location = '../../' + package.location;
 }
 
+const ignore = ['bundle.js', 'bundle.min.js', 'loader-config.js', 'index.html', 'authorized.html']
+  .map(f => `dist/editor/${f}`);
+
 async function bundle() {
-  const modules = (await globp('dist/editor/**/*.{js,html,css}'))
+  const modules = (await globp('dist/editor/**/*.{js,html}', { ignore }))
     .map(f => f.replace(/^dist\/editor\//i, '')
       .replace(/\.js$/i, '')
       .replace(/^.+\.(?:(?:html)|(?:css))$/, 'text!$&'))
-    .filter(m => m !== 'bundle' && m !== 'bundle.min' && m !== 'loader-config')
     .concat(thirdParty);
   config.rawText['bundle-manifest'] = `define(["${modules.join('","')}"], function() {});`;
   return new Promise(resolve => rjs.optimize(config, resolve));
