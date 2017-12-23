@@ -1,0 +1,9 @@
+{
+  "name": "gist-run",
+  "version": "2.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gist-run/gist-run",
+  "author": "Jeremy Danyow <jdanyow@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
