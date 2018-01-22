@@ -8,19 +8,23 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf .cache && rm -rf dist && rm -rf src/img/sprites",
+    "presprite": "copyfiles --flat \"node_modules/octicons/build/svg*/{code,gist,git-commit,info,repo-forked,repo-pull,trashcan}.svg\" src/img/sprites && copyfiles --flat src/img/stack-overflow.svg src/img/sprites",
+    "sprite": "svg-sprite --config src/img/sprite.json \"src/img/sprites/*.svg\"",
     "sass": "node-sass src/index.scss src/index.css --include-path node_modules",
-    "prestart": "yarn run clean",
+    "prestart": "yarn run clean && yarn run sprite",
     "start": "yarn run sass --watch --recursive & parcel src/index.html --port 4000 --no-hmr & parcel src/worker/worker-loader.html --public-url / --port 5000 --no-hmr"
   },
   "dependencies": {
     "@types/split.js": "^1.3.1",
+    "copyfiles": "^1.2.0",
     "monaco-editor": "^0.10.1",
     "node-sass": "^4.7.2",
     "octicons": "^7.1.0",
     "parcel-bundler": "^1.4.1",
     "primer": "^10.3.0",
     "split.js": "^1.3.5",
+    "svg-sprite": "^1.3.7",
     "typescript": "^2.6.2"
   }
 }

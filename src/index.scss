@@ -53,7 +53,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  box-sizing: border-box;
+  flex: 0 0 auto;
   height: 3 * $gutter-size;
   padding: 0 $gutter-size;
   background-color: $bg-gray;
@@ -73,6 +73,7 @@ body {
 .command-bar {
   display: flex;
   flex-direction: row;
+  flex: 0 0 auto;
   padding: $gutter-size;
 
   button + button {
@@ -94,7 +95,6 @@ body {
   
   > * {
     float: left;
-    box-sizing: border-box;
   }
 }
 

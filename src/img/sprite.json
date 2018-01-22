@@ -1,0 +1,15 @@
+{
+  "log": "info",
+  "shape": {
+    "id": {
+      "generator": "icon-%s"
+    }
+  },
+  "mode": {
+    "symbol": {
+      "dest": "src/img",
+      "prefix": ".icon-%s",
+      "sprite": "icons.svg"
+    }
+  }
+}
