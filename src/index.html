@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GistRun</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <header class="page-header">
+    <span class="logo">
+      Gist<span class="logo-run">Run</span>
+    </span>
+
+    <form class="gist-loader">
+      <div class="input-group">
+        <input class="form-control input-sm" type="text" placeholder="Gist/Plunker/jsFiddle/CodePen URL...">
+        <span class="input-group-button">
+          <button class="btn btn-sm" type="submit">
+            <svg class="octicon" width="16" height="16">
+              <use xlink:href="img/icons.svg#icon-repo-pull"></use>
+            </svg>
+          </button>
+        </span>
+      </div>
+    </form>
+
+    <button class="btn btn-sm" type="button">New Gist</button>
+
+    <button class="btn btn-sm" type="button">Sign In</button>
+
+    <a class="tooltipped tooltipped-sw" href="#" target="_blank" aria-label="Signed in as TODO">
+      <img class="avatar avatar-small" width="26" height="26">
+    </a>
+  </header>
+
+  <div class="command-bar">
+    <button class="btn">Add File</button>
+    <button class="btn btn-danger m-l-5">Stop</button>
+    <input class="form-control input-contrast" type="text" placeholder="Gist description...">
+
+    <button class="btn btn-secret tooltipped tooltipped-s" aria-label="Secret gists are hidden from search engines but visible to anyone you give the URL.">
+      Create Secret Gist
+    </button>
+    <button class="btn m-l-5">
+      Create Public Gist
+    </button>
+  </div>
+
+  <div class="main">
+    <nav id="nav" class="Box"></nav>
+    <div id="editor" class="Box"></div>
+    <iframe id="output" class="Box"></iframe>
+  </div>
+
+  <script src="index.ts"></script>
+</body>
+
+</html>

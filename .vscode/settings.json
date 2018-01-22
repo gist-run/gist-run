@@ -1,0 +1,7 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "html.suggest.angular1": false,
+  "html.suggest.ionic": false,
+  "html.format.contentUnformatted": "pre,code,textarea,span"
+}
