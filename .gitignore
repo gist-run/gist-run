@@ -3,3 +3,4 @@ dist
 node_modules
 src/index.css
 src/img/sprites
+src/img/icons.svg
