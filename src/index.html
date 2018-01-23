@@ -49,7 +49,7 @@
     <button class="btn btn-sm" type="button">Sign In</button>
 
     <a class="tooltipped tooltipped-sw" href="#" target="_blank" aria-label="Signed in as TODO">
-      <img class="avatar avatar-small" width="26" height="26">
+      <img class="avatar avatar-small" width="28" height="28" src="https://avatars3.githubusercontent.com/u/1306747?v=4?v=3&s=32">
     </a>
   </header>
 
@@ -67,7 +67,48 @@
   </div>
 
   <div class="main">
-    <nav id="nav" class="Box"></nav>
+    <div id="nav-panel">
+      <nav class="menu">
+        <a class="menu-item selected">index.html</a>
+      </nav>
+      <nav class="menu">
+        <a class="menu-item" href="#" target="_blank">
+          <svg class="octicon" width="16" height="16">
+            <use xlink:href="img/icons.svg#icon-gist"></use>
+          </svg>
+          Gist
+        </a>
+        <a class="menu-item" href="#" target="_blank">
+          <svg class="octicon" width="16" height="16">
+            <use xlink:href="img/icons.svg#icon-git-commit"></use>
+          </svg>
+          <span class="Counter Counter--gray-light">4</span> Revisions
+        </a>
+        <a class="menu-item" href="#" target="_blank">
+          <svg class="octicon" width="16" height="16">
+            <use xlink:href="img/icons.svg#icon-repo-forked"></use>
+          </svg>
+          <span class="Counter Counter--gray-light">2</span> Forks
+        </a>
+        <a class="menu-item" href="#">
+          <svg class="octicon octicon-stack-overflow" width="16" height="16">
+            <use xlink:href="img/icons.svg#icon-stack-overflow"></use>
+          </svg> Copy
+        </a>
+        <a class="menu-item" href="?id=" target="_blank">
+          <svg class="octicon" width="16" height="16">
+            <use xlink:href="img/icons.svg#icon-code"></use>
+          </svg>
+          Embed
+        </a>
+        <a class="menu-item" href="https://github.com/gist-run/gist-run/blob/master/README.md" target="_blank">
+          <svg class="octicon" width="16" height="16">
+            <use xlink:href="img/icons.svg#icon-info"></use>
+          </svg>
+          About
+        </a>
+      </nav>
+    </div>
     <div id="editor" class="Box"></div>
     <iframe id="output" class="Box"></iframe>
   </div>

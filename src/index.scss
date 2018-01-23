@@ -1,30 +1,29 @@
 $logo-blue: #4078C0;
-$gutter-size: 16px;
 
 @import "primer-support/index.scss";
 @import "primer-base/index.scss";
 @import "primer-box/index.scss";
-@import "primer-breadcrumb/index.scss";
+// @import "primer-breadcrumb/index.scss";
 @import "primer-buttons/index.scss";
-@import "primer-table-object/index.scss";
+// @import "primer-table-object/index.scss";
 
 // @import "primer-forms/index.scss";
 @import "primer-forms/lib/form-control.scss";
-@import "primer-forms/lib/form-select.scss";
+// @import "primer-forms/lib/form-select.scss";
 @import "primer-forms/lib/form-group.scss";
 // @import "primer-forms/lib/form-validation.scss";
 @import "primer-forms/lib/input-group.scss";
 
 // @import "primer-layout/index.scss";
-@import "primer-navigation/index.scss";
+@import "primer-navigation/lib/menu.scss";
 @import "primer-tooltips/index.scss";
 @import "primer-truncate/index.scss";
 @import "primer-utilities/index.scss";
 
 // @import "primer-alerts/index.scss";
-// @import "primer-avatars/index.scss";
+@import "primer-avatars/lib/avatar.scss";
 // @import "primer-blankslate/index.scss";
-// @import "primer-labels/index.scss";
+@import "primer-labels/lib/counters.scss";
 // @import "primer-markdown/index.scss";
 
 body {
@@ -54,35 +53,55 @@ body {
   flex-direction: row;
   align-items: center;
   flex: 0 0 auto;
-  height: 3 * $gutter-size;
-  padding: 0 $gutter-size;
+  height: 3 * $spacer-3;
+  padding: 0 $spacer-3;
   background-color: $bg-gray;
   border-bottom: 1px solid $gray-300;
+
+  .avatar,
+  .btn {
+    margin-left: $spacer-3;
+  }
+}
+
+.gist-loader {
+  max-width: 300px;
+  margin-right: auto;
 }
 
 .logo {
   font-weight: bold;
   font-size: 2.143em;
-  margin-right: $gutter-size;
+  margin-right: $spacer-3;
 
   .logo-run {
     color: $logo-blue;
   }
 }
 
+.menu {
+  margin-bottom: $spacer-3;
+}
+
+.menu-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .command-bar {
   display: flex;
   flex-direction: row;
   flex: 0 0 auto;
-  padding: $gutter-size;
+  padding: $spacer-3;
 
   button + button {
-    margin-left: $gutter-size / 2;
+    margin-left: $spacer-2;
   }
   
   input {
     flex-grow: 1;
-    margin: 0 $gutter-size;
+    margin: 0 $spacer-3;
   }
 }
 
@@ -91,11 +110,11 @@ body {
   flex-direction: row;
   align-items: stretch;
   flex: 1 1 auto;
-  margin: 0 $gutter-size $gutter-size $gutter-size;
+  margin: 0 $spacer-3 $spacer-3 $spacer-3;
   
-  > * {
-    float: left;
-  }
+  // > * {
+  //   float: left;
+  // }
 }
 
 .gutter.gutter-horizontal {

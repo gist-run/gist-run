@@ -21,11 +21,11 @@ activateWorker();
 sendWorkerMessage({ type: 'files', session: 42342, files: { 'foo.js': 'hello world' } });
 
 Split(
-  ['#nav', '#editor', '#output'],
+  ['#nav-panel', '#editor', '#output'],
   {
     direction: 'horizontal',
     gutterSize: 16,
-    sizes: document.documentElement.clientWidth < 1800 ? [20, 45, 35] : [10, 50, 40],
+    sizes: document.documentElement.clientWidth < 1800 ? [16, 45, 39] : [10, 50, 40],
     minSize: 150,
     snapOffset: 0,
     onDrag: () => document.body.dispatchEvent(new CustomEvent('resize', { bubbles: true }))
