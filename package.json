@@ -22,6 +22,8 @@
     "node-sass": "^4.7.2",
     "octicons": "^7.1.0",
     "parcel-bundler": "jdanyow/parcel#gr",
+    "posthtml": "^0.11.2",
+    "posthtml-include": "^1.1.0",
     "primer": "^10.3.0",
     "split.js": "^1.3.5",
     "svg-sprite": "^1.3.7",
